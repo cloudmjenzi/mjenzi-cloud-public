@@ -28,7 +28,7 @@
         ${links.map(([k, h, t]) => `<a href="${h}" class="${k === page ? "active" : ""}">${t}</a>`).join("")}
       </nav>
       <div class="nav-cta">
-        <a class="btn btn-ghost btn-sm" href="https://wa.me/61405342017" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">WhatsApp</a>
+        <a class="btn btn-ghost btn-sm btn-wa" href="https://wa.me/61405342017" target="_blank" rel="noopener" aria-label="WhatsApp us on +61 405 342 017" title="WhatsApp +61 405 342 017"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
         <a class="btn btn-primary btn-sm" href="index.html#contact">Talk to us</a>
         <button class="menu-btn" aria-label="Open menu" aria-expanded="false" id="menuBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -45,7 +45,7 @@
         <div>
           <a class="logo" href="index.html">${logo}<span>Mjenzi<small>Cloud</small></span></a>
           <p style="margin-top:14px;max-width:340px">Sovereign cloud, AI and infrastructure built for Africa and Australia. Points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra.</p>
-          <p style="margin:0 0 6px">KE <a href="tel:+254719897190">+254 719 897 190</a> · AU <a href="tel:+61405342017">+61 405 342 017</a> · BW <a href="tel:+26775535900">+267 75 535 900</a></p>
+          <p style="margin:0 0 6px">KE <a href="tel:+254719897190">+254 719 897 190</a> · AU <a href="tel:+61405342017">+61 405 342 017</a> · ZA <a href="tel:+27791448066">+27 79 144 8066</a> · BW <a href="tel:+26775535900">+267 75 535 900</a></p>
           <p style="margin:0"><a href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:kinyua@mjenzi.cloud">kinyua@mjenzi.cloud</a></p>
         </div>
         <div>
@@ -78,7 +78,7 @@
       </div>
       <div class="footer-bottom">
         <span>© ${new Date().getFullYear()} Mjenzi Technologies. All rights reserved.</span>
-        <span>Offices: Australia · Kenya · Botswana</span>
+        <span>Sydney · Canberra · Nairobi · Johannesburg · Gaborone</span>
       </div>
     </div>`;
   document.body.append(footer);

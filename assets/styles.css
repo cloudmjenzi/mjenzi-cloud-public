@@ -66,14 +66,17 @@ p { margin: 0 0 1em; color: var(--muted); }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a { padding: 8px 11px; border-radius: 8px; color: var(--muted); font-size: .9rem; font-weight: 500; white-space: nowrap; }
 .nav-cta .btn { white-space: nowrap; }
-@media (max-width: 1280px) { .nav-cta .btn-ghost { display: none; } }
+.btn-wa { gap: 7px; }
+@media (max-width: 400px) { .logo small { display: none; } .nav-cta { gap: 6px; } .nav-cta .btn-primary { padding-left: 12px; padding-right: 12px; } }
+@media (max-width: 340px) { .site-header .logo span { display: none; } }
+.btn-wa svg { flex: none; }
+@media (max-width: 1280px) { .btn-wa span { display: none; } .btn-wa { padding-left: 11px; padding-right: 11px; } }
 .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.05); }
 .nav-cta { display: flex; gap: 10px; align-items: center; }
 .menu-btn { display: none; background: none; border: 1px solid var(--line-strong); color: var(--text); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
 @media (max-width: 960px) {
   .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--bg-2); border-bottom: 1px solid var(--line); padding: 12px 16px 20px; }
   .nav-links.open { display: flex; }
-  .nav-cta .btn-ghost { display: none; }
   .menu-btn { display: inline-flex; }
 }
 
