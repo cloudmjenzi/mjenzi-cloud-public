@@ -4,3 +4,4 @@ api/form.env
 *.env
 !api/form.env.example
 zz-*
+api/config.php

@@ -1,0 +1,39 @@
+# Mjenzi Cloud - LiteSpeed / Apache rules for shared hosting
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Force HTTPS and the bare domain
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Pass the Authorization header through to PHP (for /api/leads.csv)
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Form backend endpoints
+RewriteRule ^api/submit/?$ api/submit.php [L,QSA]
+RewriteRule ^api/health/?$ api/submit.php?health=1 [L]
+RewriteRule ^api/leads\.csv$ api/leads.php [L]
+
+# Never serve source, config, docs or deploy files
+RewriteRule ^(deploy/|\.git|api/(lib|config|config\.example)\.php$|api/.*\.(py|md|sqlite3)$|README\.md$) - [F,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/css "access plus 7 days"
+ExpiresByType text/javascript "access plus 7 days"
+ExpiresByType application/javascript "access plus 7 days"
+ExpiresByType image/svg+xml "access plus 7 days"
+</IfModule>

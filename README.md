@@ -25,7 +25,27 @@ cd api && STATIC_DIR=.. python3 form_server.py
 
 Open http://127.0.0.1:8082. Form submissions are saved to `api/leads.sqlite3` (not emailed unless SMTP is configured).
 
-## Deploy to the VPS
+## Deploy to Namecheap shared hosting (mjenzi.cloud)
+
+mjenzi.cloud is on Namecheap shared hosting (cPanel, LiteSpeed). There the form backend is the PHP version
+(`api/submit.php`, `api/leads.php`, `api/lib.php`) and `.htaccess` routes `/api/submit` to it.
+
+One-time: copy your SSH key (asks for your cPanel password once):
+
+```bash
+ssh-copy-id -p 21098 CPANEL_USER@209.74.67.50
+```
+
+Deploy:
+
+```bash
+CPANEL_USER=youruser ./deploy/deploy-shared.sh
+```
+
+Then on the server create `public_html/api/config.php` from `config.example.php` (set `admin_token`).
+Leads are stored in `~/mjenzi-data/leads.sqlite3`, outside the web folder, and emailed to cloudmjenzi@gmail.com.
+
+## Deploy to a VPS instead (nginx + Python backend)
 
 One-time: copy your SSH key to the server (asks for the root password once).
 
