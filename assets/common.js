@@ -28,7 +28,7 @@
         ${links.map(([k, h, t]) => `<a href="${h}" class="${k === page ? "active" : ""}">${t}</a>`).join("")}
       </nav>
       <div class="nav-cta">
-        <a class="btn btn-ghost btn-sm" href="tel:+611300998025">+61 1300 998 025</a>
+        <a class="btn btn-ghost btn-sm" href="https://wa.me/61405342017" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">WhatsApp</a>
         <a class="btn btn-primary btn-sm" href="index.html#contact">Talk to us</a>
         <button class="menu-btn" aria-label="Open menu" aria-expanded="false" id="menuBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -45,7 +45,8 @@
         <div>
           <a class="logo" href="index.html">${logo}<span>Mjenzi<small>Cloud</small></span></a>
           <p style="margin-top:14px;max-width:340px">Sovereign cloud, AI and infrastructure built for Africa and Australia. Points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra.</p>
-          <p style="margin:0"><a href="tel:+611300998025">+61 1300 998 025</a> · <a href="mailto:cloud@mjenzi.com">cloud@mjenzi.com</a></p>
+          <p style="margin:0 0 6px">KE <a href="tel:+254719897190">+254 719 897 190</a> · AU <a href="tel:+61405342017">+61 405 342 017</a> · BW <a href="tel:+26775535900">+267 75 535 900</a></p>
+          <p style="margin:0"><a href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:kinyua@mjenzi.cloud">kinyua@mjenzi.cloud</a></p>
         </div>
         <div>
           <h4>Platform</h4>
@@ -129,7 +130,7 @@ window.Mjenzi = {
   },
 
   mailto(subject, body) {
-    location.href = `mailto:cloud@mjenzi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:kinyua@mjenzi.cloud?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   },
 
   // Modal that collects contact details, then submits a tool result.

@@ -94,7 +94,7 @@ try {
     $id = (int) $db->lastInsertId();
 } catch (Throwable $ex) {
     error_log('mjenzi save failed: ' . $ex->getMessage());
-    mj_json(500, ['error' => "Sorry, we couldn't save that. Please email cloudmjenzi@gmail.com."]);
+    mj_json(500, ['error' => "Sorry, we couldn't save that. Please email kinyua@mjenzi.cloud."]);
 }
 
 // Email (lead is already saved, so a mail failure is only logged)

@@ -248,7 +248,7 @@ class Handler(BaseHTTPRequestHandler):
             lead_id = save(entry)
         except (OSError, sqlite3.Error) as e:
             log(f"Could not save lead: {e!r}")
-            return self.send_json(500, {"error": "Sorry, we couldn't save that. Please email cloudmjenzi@gmail.com."})
+            return self.send_json(500, {"error": "Sorry, we couldn't save that. Please email kinyua@mjenzi.cloud."})
         log(f"Lead #{lead_id} saved ({ftype}, {entry['email']})")
 
         def mail():  # don't make the visitor wait for SMTP
