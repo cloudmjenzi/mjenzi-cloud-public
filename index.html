@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mjenzi Cloud — Cloud &amp; AI for Africa and Australia</title>
+  <meta name="description" content="Mjenzi Cloud builds sovereign Infrastructure-as-a-Service, GPU cloud and AI for Africa and Australia, with points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/">
+  <meta name="theme-color" content="#070b14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mjenzi Cloud">
+  <meta property="og:title" content="Mjenzi Cloud — Cloud &amp; AI for Africa and Australia">
+  <meta property="og:description" content="Mjenzi Cloud: sovereign cloud, GPU and AI infrastructure across Africa and Australia.">
+  <meta property="og:url" content="https://mjenzi.cloud/">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .hero { padding: 110px 0 90px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 900px; background:
+      radial-gradient(600px 400px at 18% 30%, rgba(46,230,197,.18), transparent 60%),
+      radial-gradient(520px 380px at 82% 20%, rgba(123,140,255,.20), transparent 60%),
+      radial-gradient(500px 300px at 60% 80%, rgba(255,181,71,.10), transparent 60%); pointer-events: none; }
+    .hero::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(148,170,220,.12) 1px, transparent 1px); background-size: 28px 28px; mask-image: linear-gradient(180deg, #000 0%, transparent 85%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%); pointer-events: none; }
+    .hero .wrap { position: relative; z-index: 1; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+    @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; } }
+    .hero p.lead { font-size: 1.18rem; max-width: 600px; color: #b9c5dd; }
+    .hero .actions { margin-top: 30px; }
+    .pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .85rem; color: var(--muted); margin-bottom: 26px; background: rgba(255,255,255,.03); }
+    .pill b { background: var(--accent-3); color: #0b1020; font-size: .72rem; padding: 3px 9px; border-radius: 999px; letter-spacing: .04em; }
+    .hero-stats { display: flex; gap: 36px; margin-top: 46px; flex-wrap: wrap; }
+    .hero-stats div b { display: block; font-family: var(--display); font-size: 2rem; color: var(--text); }
+    .hero-stats div span { font-size: .82rem; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; }
+
+    .console { background: rgba(12,19,34,.85); border: 1px solid var(--line-strong); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+    .console-top { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); align-items: center; }
+    .console-top i { width: 10px; height: 10px; border-radius: 50%; background: #2a3550; }
+    .console-top span { margin-left: 10px; font-size: .78rem; color: var(--faint); font-family: ui-monospace, Menlo, monospace; }
+    .console-body { padding: 18px; display: grid; gap: 10px; }
+    .region-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,.025); border: 1px solid var(--line); font-size: .9rem; }
+    .region-row .code { font-family: ui-monospace, Menlo, monospace; font-size: .78rem; color: var(--faint); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(61,220,132,.15); }
+    .bar { height: 6px; border-radius: 6px; background: rgba(255,255,255,.06); overflow: hidden; margin-top: 4px; }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-3)); }
+
+    .partners { padding: 34px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-2); }
+    .partners .row { display: flex; flex-wrap: wrap; gap: 14px 36px; justify-content: center; align-items: center; }
+    .partners span { font-family: var(--display); font-weight: 600; color: #6f7d9b; font-size: 1.02rem; letter-spacing: -.01em; }
+    .partners p { text-align: center; font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; color: var(--faint); margin-bottom: 18px; }
+
+    .svc-lead { grid-column: span 2; background: linear-gradient(135deg, rgba(46,230,197,.10), rgba(17,26,46,.9) 55%); border-color: rgba(46,230,197,.3); }
+    @media (max-width: 640px) { .svc-lead { grid-column: auto; } }
+    .svc-lead .feat { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 20px; margin-top: 16px; }
+    @media (max-width: 640px) { .svc-lead .feat { grid-template-columns: 1fr; } }
+    .feat div { font-size: .92rem; color: #c4cee3; display: flex; gap: 8px; }
+    .feat div::before { content: "✓"; color: var(--accent); font-weight: 700; }
+    .new-badge { position: absolute; top: 20px; right: 20px; font-size: .7rem; font-weight: 700; letter-spacing: .08em; padding: 4px 9px; border-radius: 999px; background: var(--accent-3); color: #0b1020; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 36px; } }
+    .ai-stack { display: grid; gap: 10px; }
+    .layer { padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .layer b { font-family: var(--display); font-weight: 600; }
+    .layer span { font-size: .82rem; color: var(--faint); text-align: right; }
+    .layer:nth-child(1) { border-color: rgba(123,140,255,.5); background: linear-gradient(90deg, rgba(123,140,255,.16), var(--surface)); }
+    .layer:nth-child(2) { border-color: rgba(123,140,255,.32); }
+    .layer:nth-child(5) { border-color: rgba(46,230,197,.35); background: linear-gradient(90deg, rgba(46,230,197,.10), var(--surface)); }
+    .checks { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+    .checks li { display: flex; gap: 12px; color: #c4cee3; }
+    .checks li svg { flex-shrink: 0; margin-top: 3px; color: var(--accent-3); }
+
+    .fde-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+    @media (max-width: 900px) { .fde-steps { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .fde-steps { grid-template-columns: 1fr; } }
+    .fde-steps .card::before { counter-increment: s; content: "0" counter(s); font-family: var(--display); font-size: 2.4rem; font-weight: 700; color: rgba(255,181,71,.35); display: block; margin-bottom: 8px; }
+
+    .map-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 10px; overflow: hidden; }
+    .map-wrap svg { width: 100%; height: auto; }
+    .pop-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px; }
+    @media (max-width: 900px) { .pop-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .pop-list { grid-template-columns: 1fr; } }
+    .pop { padding: 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+    .pop b { font-family: var(--display); display: block; font-size: 1.05rem; }
+    .pop span { font-size: .8rem; color: var(--faint); }
+    .pop .code { font-family: ui-monospace, Menlo, monospace; color: var(--accent); font-size: .78rem; }
+    @keyframes dash { to { stroke-dashoffset: -40; } }
+    .arc { stroke-dasharray: 6 6; animation: dash 2.2s linear infinite; }
+    @keyframes pulse { 0% { r: 6; opacity: .7 } 100% { r: 22; opacity: 0 } }
+    .pulse { animation: pulse 2.4s ease-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .arc, .pulse { animation: none; } }
+
+    .tool-card { display: flex; flex-direction: column; }
+    .tool-card p { flex: 1; }
+    .tool-card .btn { align-self: flex-start; margin-top: 8px; }
+
+    .quote { font-size: .98rem; color: #c4cee3; }
+    .quote footer { margin-top: 16px; font-size: .85rem; color: var(--faint); }
+    .quote footer b { color: var(--text); display: block; }
+
+    .server { display: flex; flex-direction: column; }
+    .server .price { font-family: var(--display); font-size: 1.3rem; color: var(--accent-2); margin: 6px 0 8px; }
+    .server .price small { font-size: .75rem; color: var(--faint); font-family: var(--font); }
+    .server p { font-size: .88rem; flex: 1; }
+
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-info div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .contact-info b { display: block; font-family: var(--display); }
+  </style>
+</head>
+<body data-page="home">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <a class="pill" href="#ai"><b>NEW</b> Mjenzi AI &amp; Forward Deployed Engineering</a>
+      <h1>The cloud &amp; AI builder for <span class="grad">Africa and Australia</span>.</h1>
+      <p class="lead">Sovereign Infrastructure-as-a-Service, GPU cloud and hands-on AI engineering, delivered from points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra. Open by design. No lock-in.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="assessment.html">Take the 5-minute Cloud &amp; AI assessment →</a>
+        <a class="btn btn-ghost" href="sizing.html">Size your infrastructure</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>5</b><span>Points of presence</span></div>
+        <div><b>2</b><span>Continents</span></div>
+        <div><b>24/7</b><span>eSOC &amp; support</span></div>
+      </div>
+    </div>
+    <div class="console" aria-label="Mjenzi Cloud regions status illustration">
+      <div class="console-top"><i></i><i></i><i></i><span>mjenzi cloud · regions</span></div>
+      <div class="console-body">
+        <div class="region-row"><div>Nairobi <div class="code">af-east-nbo1</div></div><span class="code">IaaS · GPU</span><span class="dot"></span></div>
+        <div class="region-row"><div>Johannesburg <div class="code">af-south-jnb1</div></div><span class="code">IaaS · GPU</span><span class="dot"></span></div>
+        <div class="region-row"><div>Gaborone <div class="code">af-south-gbe1</div></div><span class="code">IaaS</span><span class="dot"></span></div>
+        <div class="region-row"><div>Sydney <div class="code">au-east-syd1</div></div><span class="code">IaaS · GPU</span><span class="dot"></span></div>
+        <div class="region-row"><div>Canberra <div class="code">au-east-cbr1</div></div><span class="code">IaaS · Sovereign</span><span class="dot"></span></div>
+        <div style="padding:6px 4px 0;font-size:.8rem;color:var(--faint)">Data stays in-country by default
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners">
+  <div class="wrap">
+    <p>Built on open, proven technology</p>
+    <div class="row">
+      <span>OpenStack</span><span>Kubernetes</span><span>NVIDIA</span><span>AMD</span><span>Intel</span><span>VMware</span><span>Red Hat</span><span>Run:ai</span><span>Veeam</span><span>Pure Storage</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What we build</div>
+      <h2>One partner from rack to model.</h2>
+      <p>Infrastructure-as-a-Service is still our core. Around it, we now offer Mjenzi AI and Forward Deployed Engineering, so you can go from bare metal to production AI with one team.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card svc-lead reveal">
+        <span class="tag teal">Core platform</span>
+        <h3 style="font-size:1.6rem">Infrastructure-as-a-Service</h3>
+        <p>Performant, open cloud infrastructure in-region across Africa and Australia. Run virtual machines, bare metal, Kubernetes and storage close to your users, with data residency built in.</p>
+        <div class="feat">
+          <div>Virtual machines &amp; bare metal</div>
+          <div>Managed Kubernetes</div>
+          <div>Block, object &amp; file storage</div>
+          <div>Backup &amp; DR with Veeam</div>
+          <div>Private networking &amp; interconnect</div>
+          <div>Preconfigured cloud solutions</div>
+        </div>
+        <div class="actions"><a class="btn btn-primary btn-sm" href="cloud-config.html">Build a cloud configuration</a></div>
+      </article>
+      <article class="card reveal" id="svc-ai">
+        <span class="new-badge">NEW</span>
+        <div class="icon" style="background:rgba(123,140,255,.14);color:var(--accent-3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Mjenzi AI</h3>
+        <p>GPU cloud, private AI platforms and sovereign model hosting. Train, fine-tune and serve models in-region on NVIDIA and AMD accelerators.</p>
+        <a href="#ai" style="color:var(--accent-3);font-weight:600;font-size:.9rem">Explore Mjenzi AI →</a>
+      </article>
+      <article class="card reveal">
+        <span class="new-badge" style="background:var(--accent-2)">NEW</span>
+        <div class="icon" style="background:rgba(255,181,71,.12);color:var(--accent-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></div>
+        <h3>Forward Deployed Engineering</h3>
+        <p>Our engineers embed with your team to ship cloud and AI into production. Not slideware: working systems, owned by you.</p>
+        <a href="#fde" style="color:var(--accent-2);font-weight:600;font-size:.9rem">How FDE works →</a>
+      </article>
+      <article class="card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Enterprise SOC</h3>
+        <p>Secure by design. Our eSOC monitors and protects your infrastructure and workloads around the clock.</p>
+      </article>
+      <article class="card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+        <h3>Servers &amp; Hardware</h3>
+        <p>High-performance AMD EPYC, Intel Xeon and GPU servers, fully configured with your hypervisor of choice and delivered fast.</p>
+        <a href="sizing.html" style="color:var(--accent);font-weight:600;font-size:.9rem">Size your servers →</a>
+      </article>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <article class="card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+        <h3>X-as-a-Service</h3>
+        <p>Consume infrastructure, platforms and software as a service with predictable monthly pricing, from desktops to databases.</p>
+      </article>
+      <article class="card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div>
+        <h3>Consulting</h3>
+        <p>Cloud strategy, migration planning and multi-region architecture, from first assessment to a delivered roadmap.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MJENZI AI -->
+<section id="ai" class="alt">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="eyebrow" style="color:var(--accent-3)">Mjenzi AI</div>
+      <h2>Sovereign AI, built where your data lives.</h2>
+      <p>Most organisations in Africa and Australia send their data offshore to use AI. Mjenzi AI gives you GPU capacity and a private AI platform in-region, so sensitive data never has to leave the country.</p>
+      <ul class="checks">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><b>GPU cloud</b> on demand or reserved: NVIDIA and AMD Instinct accelerators for training and inference.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><b>Private AI platform</b> with GPU orchestration (Run:ai, Kubernetes), model serving and vector databases.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><b>Open and commercial models</b> hosted in-region behind your own network boundary.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><b>On-prem AI clusters</b> designed, built and supported by us when you need your own hardware.</span></li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="sizing.html#ai" style="background:var(--accent-3);box-shadow:0 8px 30px rgba(123,140,255,.3)">Size a GPU cluster</a><a class="btn btn-ghost" href="assessment.html">Check your AI readiness</a></div>
+    </div>
+    <div class="ai-stack reveal" aria-label="Mjenzi AI stack">
+      <div class="layer"><b>Your AI applications</b><span>Copilots · agents · RAG · analytics</span></div>
+      <div class="layer"><b>Models</b><span>Open-weight &amp; commercial, fine-tuned</span></div>
+      <div class="layer"><b>AI platform</b><span>Serving · vector DB · MLOps · Run:ai</span></div>
+      <div class="layer"><b>GPU compute</b><span>NVIDIA · AMD Instinct · NVMe fabric</span></div>
+      <div class="layer"><b>Mjenzi IaaS</b><span>In-region · sovereign · eSOC protected</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FDE -->
+<section id="fde">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--accent-2)">Forward Deployed Engineering</div>
+      <h2>Our engineers, inside your team, until it ships.</h2>
+      <p>FDE puts senior Mjenzi cloud and AI engineers on the ground with you: in your office, on your Slack, in your codebase. We own outcomes, not hours.</p>
+    </div>
+    <div class="fde-steps">
+      <div class="card reveal"><h3>Discover</h3><p>Rapid assessment of your workloads, data and constraints. Pick the use case that pays back first.</p></div>
+      <div class="card reveal"><h3>Embed</h3><p>A small FDE pod joins your team on-site or remote, in Nairobi, Johannesburg, Gaborone, Sydney or Canberra.</p></div>
+      <div class="card reveal"><h3>Build</h3><p>We design, build and deploy on Mjenzi Cloud, your data centre, or hybrid. Production-grade from day one.</p></div>
+      <div class="card reveal"><h3>Transfer</h3><p>Runbooks, training and handover so your team owns and runs it. We stay on call if you want us.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK -->
+<section id="network" class="alt">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Our network</div>
+      <h2>Five points of presence. Two continents. One cloud.</h2>
+      <p>Low-latency, in-country infrastructure across East Africa, Southern Africa and Australia, linked by a private backbone across the Indian Ocean.</p>
+    </div>
+    <div class="map-wrap reveal">
+      <svg viewBox="0 0 1000 440" role="img" aria-label="Map of Mjenzi Cloud points of presence: Nairobi, Johannesburg, Gaborone, Sydney, Canberra">
+        <defs>
+          <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="rgba(148,170,220,.16)"/></pattern>
+          <linearGradient id="arcg" x1="0" x2="1"><stop offset="0" stop-color="#2ee6c5"/><stop offset="1" stop-color="#ffb547"/></linearGradient>
+          <radialGradient id="glowA" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(46,230,197,.18)"/><stop offset="1" stop-color="rgba(46,230,197,0)"/></radialGradient>
+          <radialGradient id="glowB" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(255,181,71,.16)"/><stop offset="1" stop-color="rgba(255,181,71,0)"/></radialGradient>
+        </defs>
+        <rect width="1000" height="440" fill="url(#dots)"/>
+        <!-- simplified landmasses -->
+        <path d="M40 40 L150 30 L205 70 L190 120 L170 180 L150 250 L130 320 L100 370 L70 360 L55 300 L40 240 L30 160 Z" fill="rgba(46,230,197,.07)" stroke="rgba(46,230,197,.25)"/>
+        <path d="M800 230 L860 205 L920 215 L975 260 L990 330 L960 395 L900 405 L840 385 L790 350 L775 290 Z" fill="rgba(255,181,71,.07)" stroke="rgba(255,181,71,.28)"/>
+        <ellipse cx="110" cy="210" rx="170" ry="190" fill="url(#glowA)"/>
+        <ellipse cx="900" cy="320" rx="150" ry="120" fill="url(#glowB)"/>
+        <text x="500" y="250" text-anchor="middle" fill="rgba(154,168,196,.45)" font-size="14" letter-spacing="6" font-family="Inter">INDIAN OCEAN</text>
+        <!-- backbone arcs -->
+        <path class="arc" d="M160 92 Q 560 60 945 352" fill="none" stroke="url(#arcg)" stroke-width="2"/>
+        <path class="arc" d="M95 300 Q 540 470 945 352" fill="none" stroke="url(#arcg)" stroke-width="2"/>
+        <path d="M160 92 L95 300 M95 300 L80 286 M945 352 L930 366" fill="none" stroke="rgba(46,230,197,.5)" stroke-width="1.5"/>
+        <!-- PoPs -->
+        <g fill="#2ee6c5">
+          <circle class="pulse" cx="160" cy="92" r="6" fill="none" stroke="#2ee6c5"/><circle cx="160" cy="92" r="6"/>
+          <circle cx="95" cy="300" r="6"/><circle cx="80" cy="286" r="5"/>
+        </g>
+        <g fill="#ffb547">
+          <circle class="pulse" cx="945" cy="352" r="6" fill="none" stroke="#ffb547"/><circle cx="945" cy="352" r="6"/>
+          <circle cx="930" cy="366" r="5"/>
+        </g>
+        <g font-family="Space Grotesk, Inter" font-size="15" font-weight="600" fill="#eaf0fb">
+          <text x="174" y="90">Nairobi</text>
+          <text x="110" y="314">Johannesburg</text>
+          <text x="12" y="270">Gaborone</text>
+          <text x="890" y="336" text-anchor="end">Sydney</text>
+          <text x="915" y="390" text-anchor="end">Canberra</text>
+        </g>
+        <g font-family="Inter" font-size="11" fill="#6b7a99" letter-spacing="2">
+          <text x="174" y="106">KENYA</text>
+          <text x="110" y="329">SOUTH AFRICA</text>
+          <text x="12" y="254">BOTSWANA</text>
+          <text x="890" y="320" text-anchor="end">AUSTRALIA</text>
+        </g>
+      </svg>
+    </div>
+    <div class="pop-list">
+      <div class="pop reveal"><span class="code">af-east-nbo1</span><b>Nairobi</b><span>Kenya · East Africa hub</span></div>
+      <div class="pop reveal"><span class="code">af-south-jnb1</span><b>Johannesburg</b><span>South Africa</span></div>
+      <div class="pop reveal"><span class="code">af-south-gbe1</span><b>Gaborone</b><span>Botswana</span></div>
+      <div class="pop reveal"><span class="code">au-east-syd1</span><b>Sydney</b><span>New South Wales</span></div>
+      <div class="pop reveal"><span class="code">au-east-cbr1</span><b>Canberra</b><span>ACT · Government &amp; sovereign</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Plan it yourself</div>
+      <h2>Free tools to scope your cloud and AI.</h2>
+      <p>Get a clear picture in minutes. Each tool produces a printable sheet you can share with your team or send straight to our engineers for a quote.</p>
+    </div>
+    <div class="grid g3">
+      <a class="card tool-card reveal" href="assessment.html">
+        <span class="tag ai">5 minutes</span>
+        <h3>Cloud &amp; AI Rapid Assessment</h3>
+        <p>Score your readiness across strategy, data, infrastructure, security, people and AI. Get a maturity rating and a prioritised action plan.</p>
+        <span class="btn btn-ghost btn-sm">Start assessment →</span>
+      </a>
+      <a class="card tool-card reveal" href="sizing.html">
+        <span class="tag">Spec sheet</span>
+        <h3>Server Sizing Configurator</h3>
+        <p>Enter your workloads (VMs, databases, Kubernetes, AI) and get the server systems, GPUs, storage and switching you need, with a bill of materials.</p>
+        <span class="btn btn-ghost btn-sm">Size servers →</span>
+      </a>
+      <a class="card tool-card reveal" href="cloud-config.html">
+        <span class="tag teal">Config sheet</span>
+        <h3>Cloud Configuration Sheet</h3>
+        <p>Pick your region, compute, GPU, storage, Kubernetes, backup and security services, and get a ready-to-quote cloud configuration.</p>
+        <span class="btn btn-ghost btn-sm">Configure cloud →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Why Mjenzi Cloud</div>
+      <h2>Built for performance. Open by design.</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card reveal"><h3>Performant</h3><p>Cutting-edge server infrastructure at cost: latest-generation CPUs, GPUs and all-NVMe storage.</p></div>
+      <div class="card reveal"><h3>Scalable</h3><p>Start with one VM or one rack and grow across regions as your business grows.</p></div>
+      <div class="card reveal"><h3>Secure by design</h3><p>Protect your data and infrastructure proactively with our Enterprise SOC.</p></div>
+      <div class="card reveal"><h3>Open by design</h3><p>OpenStack, Kubernetes and open standards. No vendor lock-in, for maximum flexibility.</p></div>
+      <div class="card reveal"><h3>Sovereign</h3><p>In-country hosting to help you meet data protection laws in Kenya, South Africa, Botswana and Australia.</p></div>
+      <div class="card reveal"><h3>24/7 support</h3><p>Real engineers around the clock, plus comprehensive management tools.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVERS -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">High-performance servers</div>
+      <h2>Preconfigured. Tested. Delivered fast.</h2>
+      <p>Servers ship fully configured with your hypervisor of choice. Not sure which you need? <a href="sizing.html" style="color:var(--accent)">Use the sizing configurator</a>.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card server reveal"><span class="tag teal">1U · AMD EPYC</span><h3>HA2 | RS700-E11</h3><div class="price">$4,592 <small>USD from</small></div><p>Dual-socket EPYC 7003, up to 32 DIMMs, 12 NVMe, one dual-slot GPU option.</p></div>
+      <div class="card server reveal"><span class="tag teal">1U · Intel Xeon</span><h3>S6X | D54X-1U</h3><div class="price">$5,691 <small>USD from</small></div><p>5th/4th Gen Xeon Scalable, DDR5, PCIe 5.0, up to 16× E1.S NVMe, 400GbE ready.</p></div>
+      <div class="card server reveal"><span class="tag ai">2U · 4 GPU</span><h3>AHG2 | ESC4000A-E12</h3><div class="price">$5,441 <small>USD from</small></div><p>EPYC 9004, four dual-slot GPUs, liquid cooling option, 8 PCIe 5.0 slots.</p></div>
+      <div class="card server reveal"><span class="tag ai">4U · 8 GPU</span><h3>AHG1 | ESC8000A-E12P</h3><div class="price">$18,954 <small>USD from</small></div><p>Dual EPYC 9004, eight dual-slot GPUs, PCIe 5.0 switch, 4× 3000W Titanium PSUs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="customers" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Customer success</div>
+      <h2>Trusted by telcos, service providers and enterprises.</h2>
+    </div>
+    <div class="grid g3">
+      <blockquote class="card quote reveal" style="margin:0">“Mjenzi Cloud have supplied us several nodes which came fully configured with our hypervisor of choice. We have placed two more orders since our first purchase as servers are the fastest and the most cost effective we have ever held.”<footer><b>Sys Admin</b>Telco Provider</footer></blockquote>
+      <blockquote class="card quote reveal" style="margin:0">“Mjenzi Cloud has supported us with setting up our cloud strategy and worked to deliver our cloud infrastructure across several regions to ensure a seamless experience to our students and teaching staff.”<footer><b>IT Manager</b>Education Provider</footer></blockquote>
+      <blockquote class="card quote reveal" style="margin:0">“Mjenzi Cloud continues to support us with cloud services which have been very reliable and robust for the various eCommerce microsites we operate worldwide.”<footer><b>Owner</b>eCommerce Business</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's build your cloud.</h2>
+      <p>Our team of experts is on hand to help with sizing, cloud solutions, AI and security.</p>
+      <div class="contact-info">
+        <div><b>Call</b><a href="tel:+611300998025">+61 1300 998 025</a> · <a href="tel:+61405342017">+61 405 342 017</a></div>
+        <div><b>Email</b><a href="mailto:cloud@mjenzi.com">cloud@mjenzi.com</a></div>
+        <div><b>Offices</b><span style="color:var(--muted)">Australia · East Africa (Kenya) · Southern Africa (Botswana)</span></div>
+        <div><b>Hours</b><span style="color:var(--muted)">Mon–Sat 6:00am–8:00pm · Sun &amp; public holidays 10:00am–4:00pm<br>eSOC and critical support 24/7</span></div>
+      </div>
+    </div>
+    <form class="panel reveal" id="contactForm">
+      <div class="field-row">
+        <div class="field"><label for="fn">First name</label><input id="fn" name="first" required autocomplete="given-name"></div>
+        <div class="field"><label for="ln">Last name</label><input id="ln" name="last" autocomplete="family-name"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="em">Email</label><input id="em" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="ph">Phone</label><input id="ph" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="topic">I need help with</label>
+        <select id="topic" name="topic">
+          <option>Infrastructure-as-a-Service</option>
+          <option>Mjenzi AI / GPU cloud</option>
+          <option>Forward Deployed Engineering</option>
+          <option>Server infrastructure sizing</option>
+          <option>Preconfigured cloud solutions</option>
+          <option>X-as-a-Service</option>
+          <option>Enterprise SOC</option>
+          <option>Consulting</option>
+          <option>General query</option>
+        </select></div>
+      <div class="field"><label for="co">Company</label><input id="co" name="company" autocomplete="organization"></div>
+      <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" rows="4" required></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="web">Website</label><input id="web" name="website" tabindex="-1" autocomplete="off"></div>
+      <button class="btn btn-primary" type="submit">Send message</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="hint">We use your details only to respond to you. See our <a href="privacy.html" style="text-decoration:underline">Privacy Policy</a>.</p>
+    </form>
+  </div>
+</section>
+
+<script src="assets/common.js"></script>
+<script>
+  document.getElementById("contactForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const form = e.target, f = new FormData(form);
+    if (!String(f.get("message")).trim()) {
+      const s = form.querySelector(".form-status"); s.className = "form-status err"; s.textContent = "Please write a message."; return;
+    }
+    Mjenzi.handleSubmit(form, {
+      type: "contact", name: `${f.get("first")} ${f.get("last")}`.trim(), email: f.get("email"), phone: f.get("phone"),
+      company: f.get("company"), topic: f.get("topic"), message: f.get("message"), website: f.get("website"),
+    }, "Website enquiry: " + f.get("topic"));
+  });
+</script>
+</body>
+</html>

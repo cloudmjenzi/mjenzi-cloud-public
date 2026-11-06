@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Sizing Configurator — Mjenzi Cloud</title>
+  <meta name="description" content="Size the servers, GPUs, storage and networking you need for virtualisation, databases, Kubernetes and AI, and get a printable spec sheet from Mjenzi Cloud.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/sizing.html">
+  <meta name="theme-color" content="#070b14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mjenzi Cloud">
+  <meta property="og:title" content="Server Sizing Configurator — Mjenzi Cloud">
+  <meta property="og:description" content="Size the servers, GPUs and storage you need, with a printable spec sheet.">
+  <meta property="og:url" content="https://mjenzi.cloud/sizing.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .kpis { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 520px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+    .spec-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .spec-head small { color: var(--faint); font-family: ui-monospace, Menlo, monospace; font-size: .75rem; }
+    .warn { color: var(--accent-2); font-size: .85rem; margin: 8px 0 0; }
+    td .sub { display: block; color: var(--faint); font-size: .78rem; }
+    .toggle { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); cursor: pointer; }
+    .toggle input { width: auto; }
+    #aiFields[hidden] { display: none; }
+  </style>
+</head>
+<body data-page="sizing">
+
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="eyebrow">Free tool · spec sheet</div>
+    <h1 style="font-size:clamp(2rem,4.4vw,3.2rem)">Server <span class="grad">Sizing Configurator</span></h1>
+    <p style="max-width:700px;font-size:1.08rem">Describe your workloads and we'll work out the server systems, GPUs, storage and networking you need, with a bill of materials you can print, download or send to us for a quote.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap tool-layout">
+    <form id="f" class="no-print">
+      <div class="panel">
+        <h3><span class="step-num">1</span>Project</h3>
+        <div class="field-row">
+          <div class="field"><label for="project">Project / customer name</label><input id="project" placeholder="e.g. Nairobi private cloud"></div>
+          <div class="field"><label for="deploy">Where will it run?</label>
+            <select id="deploy">
+              <option value="onprem">My own data centre</option>
+              <option value="colo" selected>Colocated at a Mjenzi PoP</option>
+            </select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="platform">CPU platform</label>
+            <select id="platform"><option value="amd">AMD EPYC (best core density)</option><option value="intel">Intel Xeon Scalable</option></select></div>
+          <div class="field"><label for="hyper">Hypervisor / platform</label>
+            <select id="hyper"><option>OpenStack / KVM</option><option>VMware vSphere</option><option>Proxmox VE</option><option>Microsoft Hyper-V</option><option>Kubernetes on bare metal</option><option>Red Hat OpenShift</option></select></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">2</span>Virtual machines</h3>
+        <div class="field-row">
+          <div class="field"><label for="vms">Number of VMs</label><input id="vms" type="number" min="0" value="60"></div>
+          <div class="field"><label for="vcpu">Average vCPU per VM</label><input id="vcpu" type="number" min="1" value="4"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="vram">Average RAM per VM (GB)</label><input id="vram" type="number" min="1" value="16"></div>
+          <div class="field"><label for="vdisk">Average disk per VM (GB)</label><input id="vdisk" type="number" min="0" value="200"></div>
+        </div>
+        <div class="field"><label for="oc">vCPU overcommit ratio</label>
+          <select id="oc"><option value="1">1:1 (latency sensitive)</option><option value="2">2:1</option><option value="3" selected>3:1 (typical server mix)</option><option value="4">4:1</option><option value="6">6:1 (VDI / light workloads)</option></select>
+          <div class="hint">vCPUs assigned per physical core (SMT included).</div></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">3</span>Databases &amp; Kubernetes</h3>
+        <div class="field-row">
+          <div class="field"><label for="dbs">Database servers</label><input id="dbs" type="number" min="0" value="2"></div>
+          <div class="field"><label for="dbcores">Dedicated cores per database</label><input id="dbcores" type="number" min="0" value="16"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="dbram">RAM per database (GB)</label><input id="dbram" type="number" min="0" value="128"></div>
+          <div class="field"><label for="dbdisk">Data per database (TB)</label><input id="dbdisk" type="number" min="0" step="0.5" value="2"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="k8cpu">Kubernetes: total vCPU requested</label><input id="k8cpu" type="number" min="0" value="64"></div>
+          <div class="field"><label for="k8ram">Kubernetes: total RAM (GB)</label><input id="k8ram" type="number" min="0" value="256"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">4</span>Storage &amp; growth</h3>
+        <div class="field-row">
+          <div class="field"><label for="extra">Extra file / object / backup data (TB)</label><input id="extra" type="number" min="0" value="20"></div>
+          <div class="field"><label for="arch">Storage architecture</label>
+            <select id="arch"><option value="hci">Hyperconverged (drives in compute nodes)</option><option value="ceph">Dedicated Ceph storage cluster</option><option value="san">External all-flash array (Pure Storage)</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="prot">Data protection</label>
+            <select id="prot"><option value="3">3× replication</option><option value="1.5">Erasure coding 4+2 (1.5×)</option><option value="2">Mirror / RAID 10 (2×)</option></select></div>
+          <div class="field"><label for="drive">NVMe drive size</label>
+            <select id="drive"><option value="3.84">3.84 TB</option><option value="7.68" selected>7.68 TB</option><option value="15.36">15.36 TB</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="growth">Annual growth (%)</label><input id="growth" type="number" min="0" value="20"></div>
+          <div class="field"><label for="years">Planning horizon (years)</label><select id="years"><option>1</option><option>2</option><option selected>3</option><option>5</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="ha">High availability</label><select id="ha"><option value="0">None</option><option value="1" selected>N+1</option><option value="2">N+2</option></select></div>
+          <div class="field"><label for="head">Headroom (%)</label><input id="head" type="number" min="0" value="20"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="ai">
+        <h3><span class="step-num">5</span>AI &amp; GPU</h3>
+        <div class="field"><label for="aiuse">AI workload</label>
+          <select id="aiuse"><option value="none">No GPU workload</option><option value="infer">Inference (serve a model)</option><option value="lora">Fine-tuning (LoRA)</option><option value="train">Full training / full fine-tune</option></select></div>
+        <div id="aiFields" hidden>
+          <div class="field-row">
+            <div class="field"><label for="params">Model size (billion parameters)</label><input id="params" type="number" min="0.5" step="0.5" value="70"></div>
+            <div class="field"><label for="prec">Precision</label><select id="prec"><option value="2">FP16 / BF16</option><option value="1" selected>FP8 / INT8</option><option value="0.5">INT4</option></select></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="users">Concurrent users / requests</label><input id="users" type="number" min="1" value="50"></div>
+            <div class="field"><label for="ctx">Context length (tokens)</label><select id="ctx"><option value="4096">4k</option><option value="8192" selected>8k</option><option value="32768">32k</option><option value="131072">128k</option></select></div>
+          </div>
+          <div class="field"><label for="gpu">GPU</label>
+            <select id="gpu">
+              <option value="h200">NVIDIA H200 NVL · 141 GB</option>
+              <option value="h100">NVIDIA H100 NVL · 94 GB</option>
+              <option value="rtx6000">NVIDIA RTX PRO 6000 Blackwell Server · 96 GB</option>
+              <option value="l40s" selected>NVIDIA L40S · 48 GB</option>
+              <option value="mi210">AMD Instinct MI210 · 64 GB</option>
+            </select>
+            <div class="hint">PCIe GPUs shown. 8-GPU HGX / OAM systems (NVIDIA B200, AMD Instinct MI300-series) available on request.</div></div>
+        </div>
+      </div>
+    </form>
+
+    <aside class="sticky">
+      <div class="panel" id="sheet">
+        <div class="spec-head">
+          <div><h3 style="margin:0">Infrastructure spec sheet</h3><small id="ref"></small></div>
+          <label class="toggle no-print"><input type="checkbox" id="showPrice" checked> Prices</label>
+        </div>
+        <p class="print-only" id="printMeta"></p>
+        <div class="kpis" id="kpis"></div>
+        <div class="table-scroll"><table class="sheet" id="bom"></table></div>
+        <div id="warns"></div>
+        <details style="margin-top:14px">
+          <summary style="cursor:pointer;color:var(--muted);font-size:.9rem">Sizing assumptions</summary>
+          <ul id="assume" style="color:var(--muted);font-size:.85rem;padding-left:18px;margin-top:8px"></ul>
+        </details>
+        <p class="note">Indicative sizing to start a conversation. Prices are base chassis "from" prices in USD, before CPUs, memory, drives and GPUs are configured. A Mjenzi engineer will validate the design and quote.</p>
+        <div class="actions no-print">
+          <button type="button" class="btn btn-primary" id="send">Request a quote</button>
+          <button type="button" class="btn btn-ghost" onclick="window.print()">Print / PDF</button>
+          <button type="button" class="btn btn-ghost" id="csv">Download CSV</button>
+          <a class="btn btn-ghost" id="toCloud" href="cloud-config.html">Run it on Mjenzi Cloud instead →</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script src="assets/common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const num = (id) => Math.max(0, parseFloat($(id).value) || 0);
+const { fmt, esc } = Mjenzi;
+
+// Catalog (base "from" prices from the Mjenzi server range)
+const NODES = {
+  amd: { sku: "H6S | B8056G68AE12HR-2T", name: "1U compute node, AMD EPYC 9004", cpu: "1× AMD EPYC 9654 (96 cores)", cores: 96, maxRam: 1536, dimms: 12, bays: 12, ru: 1, kw: 0.65, price: 3181 },
+  intel: { sku: "S6X | D54X-1U", name: "1U compute node, Intel Xeon 5th Gen", cpu: "2× Intel Xeon Platinum 8592+ (64 cores each)", cores: 128, maxRam: 2048, dimms: 32, bays: 12, ru: 1, kw: 0.85, price: 5691 },
+};
+const STORAGE_NODE = { sku: "Mjenzi S2N-24", name: "2U all-NVMe storage node", bays: 24, ru: 2, kw: 0.8, price: null };
+const GPUS = {
+  h200: { name: "NVIDIA H200 NVL", mem: 141, kw: 0.6 },
+  h100: { name: "NVIDIA H100 NVL", mem: 94, kw: 0.4 },
+  rtx6000: { name: "NVIDIA RTX PRO 6000 Blackwell Server", mem: 96, kw: 0.6 },
+  l40s: { name: "NVIDIA L40S", mem: 48, kw: 0.35 },
+  mi210: { name: "AMD Instinct MI210", mem: 64, kw: 0.3 },
+};
+const GPU4 = { sku: "AHG2 | ESC4000A-E12", name: "2U GPU server, 4× dual-slot GPU", cpu: "1× AMD EPYC 9004", ram: 768, ru: 2, kw: 0.8, price: 5441, slots: 4 };
+const GPU8 = { sku: "AHG1 | ESC8000A-E12P", name: "4U GPU server, 8× dual-slot GPU, PCIe 5.0 switch", cpu: "2× AMD EPYC 9004", ram: 1536, ru: 4, kw: 1.4, price: 18954, slots: 8 };
+const RAM_STEPS = [256, 384, 512, 768, 1024, 1536, 2048];
+const HYPER_OVERHEAD_GB = 32;
+
+function pow2up(n) { let p = 1; while (p < n) p *= 2; return p; }
+
+function calc() {
+  const growth = Math.pow(1 + num("growth") / 100, +$("years").value);
+  const head = 1 + num("head") / 100;
+  const ha = +$("ha").value;
+  const oc = +$("oc").value;
+  const node = NODES[$("platform").value];
+  const warns = [];
+
+  // Compute demand
+  const vmVcpu = num("vms") * num("vcpu");
+  const k8Vcpu = num("k8cpu");
+  const dbCores = num("dbs") * num("dbcores");
+  const coresNeed = Math.ceil(((vmVcpu + k8Vcpu) / oc + dbCores) * growth * head);
+  const ramNeed = Math.ceil((num("vms") * num("vram") + num("dbs") * num("dbram") + num("k8ram")) * growth * head);
+
+  let nodes = 0, ramPerNode = 0;
+  if (coresNeed > 0 || ramNeed > 0) {
+    nodes = Math.max(1, Math.ceil(coresNeed / node.cores));
+    // grow node count until RAM fits a standard config
+    while (ramNeed / nodes + HYPER_OVERHEAD_GB > node.maxRam) nodes++;
+    ramPerNode = RAM_STEPS.find((r) => r >= ramNeed / nodes + HYPER_OVERHEAD_GB && r <= node.maxRam) || node.maxRam;
+    nodes = Math.max(nodes + ha, ha ? 3 : nodes); // HA clusters need at least 3 nodes
+  }
+
+  // Storage
+  const usable = (num("vms") * num("vdisk") / 1000 + num("dbs") * num("dbdisk") + num("extra")) * growth;
+  const prot = +$("prot").value;
+  const arch = $("arch").value;
+  const drive = +$("drive").value;
+  let raw = usable * prot / 0.8; // 80% max fill
+  let drivesPerNode = 0, storageNodes = 0, sanTB = 0, drivesTotal = 0;
+  if (usable > 0) {
+    if (arch === "hci") {
+      if (nodes < 3) { nodes = 3; ramPerNode = ramPerNode || RAM_STEPS[0]; }
+      drivesPerNode = Math.max(2, Math.ceil(raw / drive / nodes));
+      if (drivesPerNode > node.bays) { warns.push(`Storage needs ${drivesPerNode} drives per node, more than the ${node.bays} bays available. Switched to a dedicated Ceph cluster.`); }
+    }
+    if (arch === "ceph" || drivesPerNode > node.bays) {
+      drivesPerNode = 0;
+      drivesTotal = Math.ceil(raw / drive);
+      storageNodes = Math.max(3, Math.ceil(drivesTotal / STORAGE_NODE.bays));
+      if (prot === 1.5) storageNodes = Math.max(storageNodes, 6);
+      drivesTotal = Math.max(drivesTotal, storageNodes * 4);
+    }
+    if (arch === "san") { sanTB = Math.ceil(usable / 0.8); raw = sanTB; }
+    if (arch === "hci") drivesTotal = drivesPerNode * nodes;
+  }
+
+  // GPU
+  const ai = $("aiuse").value;
+  let gpus = 0, vram = 0, gpuServers = [], gpu = GPUS[$("gpu").value];
+  if (ai !== "none") {
+    const P = num("params") || 1, bpp = +$("prec").value;
+    if (ai === "infer") {
+      const kvPer1k = 0.1 + 0.0033 * P;      // GB of KV cache per 1k tokens at FP16 (GQA-style models)
+      const kvScale = bpp < 2 ? 0.5 : 1;      // FP8 KV cache when the model is quantised
+      const avgFill = 0.5;                    // requests use about half the max context on average
+      vram = P * bpp * 1.1 + num("users") * (+$("ctx").value / 1000) * kvPer1k * kvScale * avgFill;
+    } else if (ai === "lora") vram = P * Math.max(bpp, 0.5) * 1.4 + 8;
+    else vram = P * 18 * 1.25;
+    const minG = Math.ceil(vram / (gpu.mem * 0.9));
+    gpus = minG <= 8 ? pow2up(minG) : Math.ceil(minG / 8) * 8;
+    if (ai === "train") warns.push("Full training figure is the minimum to fit model and optimiser state in memory. More GPUs shorten training time; we'll size for your target timeline.");
+    if (gpus > 8) warns.push(`${gpus} GPUs need a multi-node cluster. We've added a 400 GbE GPU fabric; consider an 8-GPU HGX/OAM platform for best interconnect.`);
+    if (gpus <= 4) gpuServers = [{ ...GPU4, qty: 1, g: gpus }];
+    else gpuServers = [{ ...GPU8, qty: Math.ceil(gpus / 8), g: 8 }];
+  }
+
+  // BOM
+  const bom = [];
+  if (nodes) bom.push({ qty: nodes, item: node.name, sku: node.sku, spec: `${node.cpu} · ${ramPerNode} GB DDR5 · 2× M.2 boot` + (drivesPerNode ? ` · ${drivesPerNode}× ${drive} TB NVMe` : "") + " · 2× 25 GbE", price: node.price, ru: node.ru, kw: node.kw + drivesPerNode * 0.02 });
+  if (storageNodes) bom.push({ qty: storageNodes, item: STORAGE_NODE.name, sku: STORAGE_NODE.sku, spec: `1× AMD EPYC 9004 · 256 GB · ${Math.ceil(drivesTotal / storageNodes)}× ${drive} TB NVMe · 2× 100 GbE`, price: null, ru: 2, kw: 0.8 });
+  if (sanTB) bom.push({ qty: 1, item: "All-flash storage array (Pure Storage FlashArray)", sku: "Pure FlashArray//X", spec: `≈${fmt(sanTB)} TB effective · dual controllers · 4× 25 GbE iSCSI/NVMe-oF`, price: null, ru: 3, kw: 1.0 });
+  gpuServers.forEach((g) => bom.push({ qty: g.qty, item: g.name, sku: g.sku, spec: `${g.cpu} · ${g.ram} GB DDR5 · ${g.g}× ${gpu.name} ${gpu.mem} GB · 2× 3.84 TB NVMe · 2× 100 GbE` + (gpus > 8 ? " · 8× 400 GbE GPU fabric" : ""), price: g.price, ru: g.ru, kw: g.kw + g.g * gpu.kw }));
+  const ports = (nodes + storageNodes + gpuServers.reduce((a, g) => a + g.qty, 0) + (sanTB ? 2 : 0)) * 2;
+  const tor = ports > 0 ? Math.max(2, Math.ceil(ports / 48) * 2) : 0;
+  if (tor) bom.push({ qty: tor, item: "Top-of-rack switch, redundant pair", sku: "ToR 48×25G + 8×100G", spec: "MLAG / EVPN-VXLAN · L3 · dual PSU", price: null, ru: 1, kw: 0.35 });
+  if (gpus > 8) bom.push({ qty: 2, item: "GPU fabric switch", sku: "Spine 64×400G", spec: "RoCEv2 lossless Ethernet for GPU-to-GPU traffic", price: null, ru: 2, kw: 1.2 });
+  if (tor) bom.push({ qty: 1, item: "Management switch", sku: "OOB 48×1G", spec: "Out-of-band iKVM / BMC network", price: null, ru: 1, kw: 0.1 });
+
+  const ru = bom.reduce((a, b) => a + b.qty * b.ru, 0) + (tor ? 2 : 0); // + PDUs/patch
+  const kw = bom.reduce((a, b) => a + b.qty * b.kw, 0);
+  const racks = ru ? Math.max(Math.ceil(ru / 42), Math.ceil(kw / 15)) : 0;
+  const totalCores = nodes * node.cores;
+  const totalRam = nodes * ramPerNode;
+
+  if (kw / Math.max(racks, 1) > 12) warns.push(`About ${fmt(kw / racks, 1)} kW per rack. Check your data centre supports high-density racks${$("deploy").value === "colo" ? " (Mjenzi PoPs can)" : ""}.`);
+
+  return { coresNeed, ramNeed, usable, raw, nodes, ramPerNode, totalCores, totalRam, storageNodes, gpus, vram, gpu, bom, ru, kw, racks, warns, growth, head, oc, ha, node, arch, ai };
+}
+
+const REF = Mjenzi.ref("MJZ-SZ");
+function render() {
+  const r = calc();
+  const showPrice = $("showPrice").checked;
+  $("ref").textContent = REF;
+  $("kpis").innerHTML = [
+    [fmt(r.nodes + r.storageNodes + r.bom.filter((b) => /GPU server/.test(b.item)).reduce((a, b) => a + b.qty, 0)), "Servers"],
+    [fmt(r.totalCores), "Physical cores"],
+    [fmt(r.totalRam / 1024, 1) + " TB", "Memory"],
+    [fmt(r.usable, 1) + " TB", "Usable storage"],
+    [r.gpus ? fmt(r.gpus) : "–", "GPUs"],
+    [fmt(r.kw, 1) + " kW", `${r.ru}U · ${r.racks} rack${r.racks === 1 ? "" : "s"}`],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  $("bom").innerHTML = `<thead><tr><th class="num">Qty</th><th>System</th>${showPrice ? '<th class="num">From (USD)</th>' : ""}</tr></thead><tbody>` +
+    (r.bom.length ? r.bom.map((b) => `<tr><td class="num">${b.qty}</td><td><b>${esc(b.item)}</b><span class="sub">${esc(b.sku)}</span><span class="sub">${esc(b.spec)}</span></td>${showPrice ? `<td class="num">${b.price ? "$" + fmt(b.price) : "Quote"}</td>` : ""}</tr>`).join("")
+      : `<tr><td colspan="3" style="color:var(--faint)">Add some workloads to see a configuration.</td></tr>`) + "</tbody>";
+
+  $("warns").innerHTML = r.warns.map((w) => `<p class="warn">⚠ ${esc(w)}</p>`).join("");
+  $("assume").innerHTML = [
+    `Demand after ${$("years").value}-year growth (×${fmt(r.growth, 2)}) and ${num("head")}% headroom: ${fmt(r.coresNeed)} cores, ${fmt(r.ramNeed)} GB RAM.`,
+    `vCPU overcommit ${r.oc}:1 for VMs and Kubernetes; databases get dedicated cores.`,
+    `${HYPER_OVERHEAD_GB} GB per node reserved for the hypervisor. ${r.ha ? `N+${r.ha} spare node${r.ha > 1 ? "s" : ""} added.` : "No spare nodes."}`,
+    `Raw storage ${fmt(r.raw, 1)} TB for ${fmt(r.usable, 1)} TB usable, filled to at most 80%.`,
+    r.gpus ? `GPU memory needed ≈ ${fmt(r.vram)} GB (model weights, KV cache / optimiser state), fitted at 90% of ${r.gpu.mem} GB per GPU.` : "No GPU workload.",
+    `Power is a typical-load estimate; racks assume 42U and 15 kW.`,
+  ].map((t) => `<li>${esc(t)}</li>`).join("");
+
+  $("printMeta").textContent = `${$("project").value || "Untitled project"} · ${REF} · ${new Date().toLocaleDateString("en-AU")} · ${$("hyper").value}`;
+  const q = new URLSearchParams({ vcpu: Math.ceil(num("vms") * num("vcpu") + num("k8cpu") + num("dbs") * num("dbcores")), ram: Math.ceil(num("vms") * num("vram") + num("dbs") * num("dbram") + num("k8ram")), storage: Math.ceil(r.usable), gpus: r.gpus, gpu: $("gpu").value });
+  $("toCloud").href = "cloud-config.html?" + q.toString();
+  window.__r = r;
+}
+
+function rows() {
+  const r = window.__r;
+  return [["Mjenzi Cloud — Infrastructure spec sheet"], ["Reference", REF], ["Project", $("project").value], ["Platform", $("hyper").value], [],
+    ["Qty", "System", "SKU", "Specification", "From (USD)"],
+    ...r.bom.map((b) => [b.qty, b.item, b.sku, b.spec, b.price || "Quote"]), [],
+    ["Physical cores", r.totalCores], ["Memory (GB)", r.totalRam], ["Usable storage (TB)", r.usable.toFixed(1)], ["Raw storage (TB)", r.raw.toFixed(1)], ["GPUs", r.gpus], ["Power (kW)", r.kw.toFixed(1)], ["Rack units", r.ru], ["Racks", r.racks]];
+}
+
+$("aiuse").addEventListener("change", () => { $("aiFields").hidden = $("aiuse").value === "none"; });
+document.querySelectorAll("input,select").forEach((el) => el.addEventListener("input", render));
+$("showPrice").addEventListener("change", render);
+$("csv").addEventListener("click", () => Mjenzi.download(`${REF}.csv`, Mjenzi.csv(rows())));
+$("send").addEventListener("click", () => {
+  Mjenzi.leadDialog({
+    type: "sizing", reference: REF, title: "Request a quote",
+    summary: () => rows().map((r) => r.join(" | ")).join("\n"),
+    data: () => {
+      const r = window.__r;
+      const inputs = Object.fromEntries([...document.querySelectorAll("#f input, #f select")].map((el) => [el.id, el.value]));
+      return { inputs, bom: r.bom, totals: { cores: r.totalCores, ramGB: r.totalRam, usableTB: +r.usable.toFixed(1), rawTB: +r.raw.toFixed(1), gpus: r.gpus, kw: +r.kw.toFixed(1), ru: r.ru, racks: r.racks }, warnings: r.warns };
+    },
+  });
+});
+if (location.hash === "#ai") { $("aiuse").value = "infer"; $("aiFields").hidden = false; }
+render();
+</script>
+</body>
+</html>

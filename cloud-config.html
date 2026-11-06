@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloud Configuration Sheet — Mjenzi Cloud</title>
+  <meta name="description" content="Build a Mjenzi Cloud configuration: region, compute, GPU, Kubernetes, storage, backup, networking and security, ready to quote.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/cloud-config.html">
+  <meta name="theme-color" content="#070b14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mjenzi Cloud">
+  <meta property="og:title" content="Cloud Configuration Sheet — Mjenzi Cloud">
+  <meta property="og:description" content="Build a ready-to-quote Mjenzi Cloud configuration.">
+  <meta property="og:url" content="https://mjenzi.cloud/cloud-config.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .kpis { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 520px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+    .row-item { display: grid; grid-template-columns: 1.6fr 1fr 70px 90px 36px; gap: 8px; align-items: end; margin-bottom: 10px; }
+    .row-item.gpu { grid-template-columns: 1.8fr 1fr 70px 36px; }
+    @media (max-width: 600px) { .row-item, .row-item.gpu { grid-template-columns: 1fr 1fr; } }
+    .row-item label { font-size: .75rem; }
+    .row-item > div, .field-row > div { min-width: 0; }
+    .del { background: none; border: 1px solid var(--line-strong); color: var(--faint); border-radius: 8px; height: 44px; cursor: pointer; }
+    .del:hover { color: var(--danger); border-color: var(--danger); }
+    .add { background: none; border: 1px dashed var(--line-strong); color: var(--accent); border-radius: 10px; padding: 10px; width: 100%; cursor: pointer; font: inherit; font-weight: 600; }
+    .add:hover { border-color: var(--accent); }
+    .region-pick { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    @media (max-width: 700px) { .region-pick { grid-template-columns: repeat(2, 1fr); } }
+    .region-pick label { margin: 0; position: relative; }
+    .region-pick input { position: absolute; opacity: 0; }
+    .region-pick span { display: block; padding: 12px; border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer; font-size: .85rem; color: var(--muted); }
+    .region-pick b { display: block; color: var(--text); font-family: var(--display); font-size: .98rem; }
+    .region-pick input:checked + span { border-color: var(--accent); background: rgba(46,230,197,.1); }
+    .region-pick input:focus-visible + span { box-shadow: 0 0 0 3px rgba(46,230,197,.3); }
+    .checkline { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: .92rem; margin-bottom: 10px; cursor: pointer; }
+    .checkline input { width: auto; }
+    td .sub { display: block; color: var(--faint); font-size: .78rem; }
+    tr.group td { color: var(--accent); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; padding-top: 14px; border-bottom: 0; }
+    .prefill { background: rgba(123,140,255,.1); border: 1px solid rgba(123,140,255,.35); border-radius: 12px; padding: 12px 16px; font-size: .9rem; color: #c4cee3; margin-bottom: 20px; }
+  </style>
+</head>
+<body data-page="cloud">
+
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="eyebrow">Free tool · configuration sheet</div>
+    <h1 style="font-size:clamp(2rem,4.4vw,3.2rem)">Cloud <span class="grad">Configuration Sheet</span></h1>
+    <p style="max-width:700px;font-size:1.08rem">Choose your region and the services you need. You'll get a configuration sheet with resource totals that you can print, download or send to us for pricing.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap tool-layout">
+    <form id="f" class="no-print" onsubmit="return false">
+      <div class="prefill" id="prefill" hidden></div>
+
+      <div class="panel">
+        <h3><span class="step-num">1</span>Region &amp; term</h3>
+        <div class="field"><label>Primary region</label>
+          <div class="region-pick" id="regions"></div></div>
+        <div class="field-row">
+          <div class="field"><label for="dr">Disaster recovery region</label><select id="dr"></select></div>
+          <div class="field"><label for="term">Commitment term</label>
+            <select id="term"><option>Monthly (no commitment)</option><option>12 months reserved</option><option selected>36 months reserved</option></select></div>
+        </div>
+        <div class="field"><label for="org">Organisation / project</label><input id="org" placeholder="e.g. Gaborone ERP platform"></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">2</span>Virtual machines</h3>
+        <div id="vmRows"></div>
+        <button type="button" class="add" id="addVm">+ Add instance type</button>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">3</span>Mjenzi AI · GPU instances</h3>
+        <div id="gpuRows"></div>
+        <button type="button" class="add" id="addGpu">+ Add GPU instance</button>
+        <div class="field" style="margin-top:14px"><label for="aiplat">AI platform services</label>
+          <select id="aiplat"><option value="">None</option><option>Private model serving (open-weight LLMs)</option><option>Model serving + vector database (RAG)</option><option>Full private AI platform (Run:ai, MLOps, serving, vector DB)</option></select></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">4</span>Managed Kubernetes</h3>
+        <div class="field-row">
+          <div class="field"><label for="k8c">Clusters</label><input id="k8c" type="number" min="0" value="0"></div>
+          <div class="field"><label for="k8n">Worker nodes per cluster</label><input id="k8n" type="number" min="0" value="3"></div>
+        </div>
+        <div class="field"><label for="k8f">Worker node size</label><select id="k8f"></select></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">5</span>Storage &amp; backup</h3>
+        <div class="field-row">
+          <div class="field"><label for="blk">Extra block storage, NVMe (TB)</label><input id="blk" type="number" min="0" step="0.5" value="2"></div>
+          <div class="field"><label for="obj">Object storage, S3-compatible (TB)</label><input id="obj" type="number" min="0" step="0.5" value="5"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="file">File storage, NFS/SMB (TB)</label><input id="file" type="number" min="0" step="0.5" value="0"></div>
+          <div class="field"><label for="bkvm">VMs protected by Veeam backup</label><input id="bkvm" type="number" min="0" value="0"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="ret">Backup retention</label><select id="ret"><option>14 days</option><option selected>30 days</option><option>90 days</option><option>1 year</option><option>7 years (compliance)</option></select></div>
+          <div class="field" style="display:flex;align-items:flex-end"><label class="checkline"><input type="checkbox" id="offsite" checked> Offsite copy in DR region</label></div>
+        </div>
+        <label class="checkline"><input type="checkbox" id="drrep"> Replicate VMs to DR region (DRaaS)</label>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">6</span>Network</h3>
+        <div class="field-row">
+          <div class="field"><label for="ips">Public IPv4 addresses</label><input id="ips" type="number" min="0" value="2"></div>
+          <div class="field"><label for="bw">Internet bandwidth commit</label><select id="bw"><option>100 Mbps</option><option selected>500 Mbps</option><option>1 Gbps</option><option>10 Gbps</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="lb">Load balancers</label><input id="lb" type="number" min="0" value="1"></div>
+          <div class="field"><label for="vpn">Site-to-site VPNs</label><input id="vpn" type="number" min="0" value="1"></div>
+        </div>
+        <label class="checkline"><input type="checkbox" id="xc"> Private cross-connect / direct interconnect to my site</label>
+        <label class="checkline"><input type="checkbox" id="bb"> Private backbone between Africa and Australia regions</label>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step-num">7</span>Security, support &amp; engineering</h3>
+        <div class="field-row">
+          <div class="field"><label for="soc">Enterprise SOC</label><select id="soc"><option value="">None</option><option>eSOC Standard (24/7 monitoring &amp; alerting)</option><option selected>eSOC Advanced (24/7 monitoring, threat hunting &amp; response)</option></select></div>
+          <div class="field"><label for="sup">Support plan</label><select id="sup"><option>Standard (business hours)</option><option selected>Business (24/7 critical)</option><option>Enterprise (24/7, named TAM)</option></select></div>
+        </div>
+        <label class="checkline"><input type="checkbox" id="waf" checked> Web application firewall &amp; DDoS protection</label>
+        <div class="field-row">
+          <div class="field"><label for="mig">Migration services</label><select id="mig"><option value="">Not needed</option><option>Assisted migration</option><option>Fully managed migration</option></select></div>
+          <div class="field"><label for="fde">Forward Deployed Engineering</label><select id="fde"><option value="">Not needed</option><option>FDE pod · 1 engineer</option><option>FDE pod · 2 engineers</option><option>FDE pod · 4 engineers</option></select></div>
+        </div>
+      </div>
+    </form>
+
+    <aside class="sticky">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:14px">
+          <div><h3 style="margin:0">Cloud configuration</h3><small style="color:var(--faint);font-family:ui-monospace,Menlo,monospace;font-size:.75rem" id="ref"></small></div>
+          <span class="tag teal" id="regionTag" style="margin:0"></span>
+        </div>
+        <p class="print-only" id="printMeta"></p>
+        <div class="kpis" id="kpis"></div>
+        <div class="table-scroll"><table class="sheet" id="sheet"></table></div>
+        <p class="note">Configuration only, for scoping. Send it to us and we'll come back with pricing for your chosen term, usually within one business day.</p>
+        <div class="actions no-print">
+          <button type="button" class="btn btn-primary" id="send">Request pricing</button>
+          <button type="button" class="btn btn-ghost" onclick="window.print()">Print / PDF</button>
+          <button type="button" class="btn btn-ghost" id="csv">Download CSV</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script src="assets/common.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const num = (id) => Math.max(0, parseFloat($(id).value) || 0);
+const { fmt, esc } = Mjenzi;
+
+const REGIONS = [
+  ["af-east-nbo1", "Nairobi", "Kenya"],
+  ["af-south-jnb1", "Johannesburg", "South Africa"],
+  ["af-south-gbe1", "Gaborone", "Botswana"],
+  ["au-east-syd1", "Sydney", "Australia"],
+  ["au-east-cbr1", "Canberra", "Australia · sovereign"],
+];
+const DR_DEFAULT = { "af-east-nbo1": "af-south-jnb1", "af-south-jnb1": "af-south-gbe1", "af-south-gbe1": "af-south-jnb1", "au-east-syd1": "au-east-cbr1", "au-east-cbr1": "au-east-syd1" };
+const FLAVORS = [
+  ["m2.small", "General", 2, 8], ["m2.medium", "General", 4, 16], ["m2.large", "General", 8, 32], ["m2.xlarge", "General", 16, 64], ["m2.2xlarge", "General", 32, 128],
+  ["c2.large", "Compute", 8, 16], ["c2.xlarge", "Compute", 16, 32], ["c2.2xlarge", "Compute", 32, 64],
+  ["r2.large", "Memory", 8, 64], ["r2.xlarge", "Memory", 16, 128], ["r2.2xlarge", "Memory", 32, 256],
+];
+const GPU_FLAVORS = [
+  ["g2.l40s.1", "1× NVIDIA L40S 48 GB", 1, 16, 128], ["g2.l40s.4", "4× NVIDIA L40S 48 GB", 4, 64, 512],
+  ["g2.rtx6k.1", "1× NVIDIA RTX PRO 6000 Blackwell 96 GB", 1, 24, 192],
+  ["g2.h200.1", "1× NVIDIA H200 NVL 141 GB", 1, 24, 256], ["g2.h200.4", "4× NVIDIA H200 NVL 141 GB", 4, 96, 1024], ["g2.h200.8", "8× NVIDIA H200 NVL 141 GB", 8, 192, 2048],
+  ["g2.mi210.4", "4× AMD Instinct MI210 64 GB", 4, 64, 512],
+  ["bm.gpu.dedicated", "Dedicated GPU bare-metal cluster (custom)", 0, 0, 0],
+];
+const OS = ["Ubuntu / Debian Linux", "Red Hat Enterprise Linux", "Windows Server", "Bring your own image"];
+
+// Regions
+$("regions").innerHTML = REGIONS.map(([c, n, k], i) => `<label><input type="radio" name="region" value="${c}" ${i === 0 ? "checked" : ""}><span><b>${n}</b>${k}</span></label>`).join("");
+function fillDr() {
+  const r = document.querySelector('input[name="region"]:checked').value;
+  $("dr").innerHTML = `<option value="">No DR region</option>` + REGIONS.filter(([c]) => c !== r).map(([c, n]) => `<option value="${c}" ${DR_DEFAULT[r] === c ? "selected" : ""}>${n} (${c})</option>`).join("");
+}
+fillDr();
+$("k8f").innerHTML = FLAVORS.map(([c, t, v, m]) => `<option value="${c}" ${c === "m2.xlarge" ? "selected" : ""}>${c} · ${v} vCPU / ${m} GB</option>`).join("");
+
+// Dynamic rows
+function vmRow(f = "m2.medium", os = 0, qty = 2, disk = 100) {
+  const d = document.createElement("div"); d.className = "row-item";
+  d.innerHTML = `
+    <div><label>Instance</label><select data-k="flavor">${FLAVORS.map(([c, t, v, m]) => `<option value="${c}" ${c === f ? "selected" : ""}>${c} · ${t} · ${v} vCPU / ${m} GB</option>`).join("")}</select></div>
+    <div><label>OS</label><select data-k="os">${OS.map((o, i) => `<option value="${i}" ${i === os ? "selected" : ""}>${o}</option>`).join("")}</select></div>
+    <div><label>Qty</label><input data-k="qty" type="number" min="0" value="${qty}"></div>
+    <div><label>Disk GB</label><input data-k="disk" type="number" min="10" value="${disk}"></div>
+    <button type="button" class="del" aria-label="Remove">✕</button>`;
+  $("vmRows").appendChild(d);
+}
+function gpuRow(f = "g2.l40s.1", qty = 1, term = 0) {
+  const d = document.createElement("div"); d.className = "row-item gpu";
+  d.innerHTML = `
+    <div><label>GPU instance</label><select data-k="flavor">${GPU_FLAVORS.map(([c, n]) => `<option value="${c}" ${c === f ? "selected" : ""}>${n}</option>`).join("")}</select></div>
+    <div><label>Billing</label><select data-k="term"><option value="0" ${term === 0 ? "selected" : ""}>Reserved</option><option value="1" ${term === 1 ? "selected" : ""}>On demand</option></select></div>
+    <div><label>Qty</label><input data-k="qty" type="number" min="0" value="${qty}"></div>
+    <button type="button" class="del" aria-label="Remove">✕</button>`;
+  $("gpuRows").appendChild(d);
+}
+
+// Prefill from the sizing tool
+const qs = new URLSearchParams(location.search);
+if (qs.has("vcpu")) {
+  const vcpu = +qs.get("vcpu"), ram = +qs.get("ram"), storage = +qs.get("storage"), gpus = +qs.get("gpus");
+  const ratio = ram / Math.max(vcpu, 1);
+  const flav = ratio > 6 ? "r2.xlarge" : ratio < 3 ? "c2.xlarge" : "m2.xlarge";
+  const [, , v, m] = FLAVORS.find((x) => x[0] === flav);
+  const n = Math.max(1, Math.ceil(Math.max(vcpu / v, ram / m)));
+  vmRow(flav, 0, n, 100);
+  $("blk").value = Math.max(0, Math.ceil(storage - (n * 100) / 1000));
+  if (gpus > 0) {
+    const g = qs.get("gpu") === "h200" ? "h200" : "l40s";
+    if (gpus >= 8) gpuRow(`g2.${g}.${g === "h200" ? 8 : 4}`, Math.ceil(gpus / (g === "h200" ? 8 : 4)), 0);
+    else if (gpus >= 4) gpuRow(`g2.${g}.4`, Math.ceil(gpus / 4), 0);
+    else gpuRow(`g2.${g}.1`, gpus, 0);
+  }
+  $("bkvm").value = n;
+  const p = $("prefill"); p.hidden = false;
+  p.innerHTML = `Pre-filled from your server sizing: <b>${fmt(vcpu)} vCPU</b>, <b>${fmt(ram)} GB RAM</b>, <b>${fmt(storage)} TB</b> storage${gpus ? `, <b>${gpus} GPUs</b>` : ""}. Adjust as needed.`;
+} else {
+  vmRow("m2.large", 0, 4, 100);
+  vmRow("r2.xlarge", 1, 2, 500);
+  vmRow("m2.medium", 2, 4, 120);
+}
+
+const REF = Mjenzi.ref("MJZ-CC");
+function build() {
+  const region = REGIONS.find(([c]) => c === document.querySelector('input[name="region"]:checked').value);
+  const drC = $("dr").value; const dr = REGIONS.find(([c]) => c === drC);
+  const lines = []; const t = { vcpu: 0, ram: 0, disk: 0, gpu: 0, inst: 0 };
+  const group = (g) => lines.push({ group: g });
+  const add = (qty, item, sub) => lines.push({ qty, item, sub });
+
+  group("Compute");
+  [...$("vmRows").children].forEach((row) => {
+    const g = (k) => row.querySelector(`[data-k="${k}"]`).value;
+    const qty = Math.max(0, +g("qty") || 0); if (!qty) return;
+    const [c, type, v, m] = FLAVORS.find((x) => x[0] === g("flavor"));
+    add(qty, `${c} · ${type}`, `${v} vCPU · ${m} GB RAM · ${g("disk")} GB NVMe · ${OS[+g("os")]}`);
+    t.vcpu += v * qty; t.ram += m * qty; t.disk += (+g("disk") || 0) * qty / 1000; t.inst += qty;
+  });
+  const k8c = num("k8c"), k8n = num("k8n");
+  if (k8c && k8n) {
+    const [c, , v, m] = FLAVORS.find((x) => x[0] === $("k8f").value);
+    add(k8c, "Managed Kubernetes cluster", `HA control plane · ${k8n}× ${c} workers (${v} vCPU / ${m} GB each) · ingress · CSI storage`);
+    t.vcpu += v * k8n * k8c; t.ram += m * k8n * k8c; t.inst += k8n * k8c;
+  }
+
+  const gpuLines = [...$("gpuRows").children].map((row) => {
+    const g = (k) => row.querySelector(`[data-k="${k}"]`).value;
+    return { qty: Math.max(0, +g("qty") || 0), f: GPU_FLAVORS.find((x) => x[0] === g("flavor")), term: g("term") };
+  }).filter((x) => x.qty);
+  if (gpuLines.length || $("aiplat").value) {
+    group("Mjenzi AI");
+    gpuLines.forEach(({ qty, f, term }) => {
+      add(qty, f[1], f[2] ? `${f[0]} · ${f[3]} vCPU · ${f[4]} GB RAM · ${term === "0" ? "reserved" : "on demand"}` : "Engineer-designed bare-metal GPU cluster");
+      t.gpu += f[2] * qty; t.vcpu += f[3] * qty; t.ram += f[4] * qty;
+    });
+    if ($("aiplat").value) add(1, $("aiplat").value, "Hosted in-region · data stays in " + region[2].split(" ·")[0]);
+  }
+
+  group("Storage & backup");
+  if (num("blk")) add(num("blk") + " TB", "Block storage · NVMe", "3× replicated");
+  if (num("obj")) add(num("obj") + " TB", "Object storage · S3-compatible", "Versioning & object lock available");
+  if (num("file")) add(num("file") + " TB", "File storage · NFS / SMB", "");
+  if (num("bkvm")) add(num("bkvm"), "Veeam backup · protected VMs", `${$("ret").value} retention` + ($("offsite").checked && dr ? ` · offsite copy in ${dr[1]}` : ""));
+  if ($("drrep").checked && dr) add(t.inst, "Disaster recovery as a service", `VM replication to ${dr[1]} (${dr[0]}) · runbook & annual DR test`);
+
+  group("Network");
+  if (num("ips")) add(num("ips"), "Public IPv4 address", "");
+  add(1, "Internet bandwidth", `${$("bw").value} committed · DDoS-protected edge`);
+  if (num("lb")) add(num("lb"), "Load balancer", "L4/L7 · TLS termination · health checks");
+  if (num("vpn")) add(num("vpn"), "Site-to-site VPN", "IPsec · redundant tunnels");
+  if ($("xc").checked) add(1, "Private cross-connect", `Direct interconnect into ${region[1]} PoP`);
+  if ($("bb").checked) add(1, "Mjenzi private backbone", "Africa ⇄ Australia inter-region connectivity");
+
+  group("Security, support & services");
+  if ($("soc").value) add(1, $("soc").value, `Covers ${t.inst} instances`);
+  if ($("waf").checked) add(1, "Web application firewall & DDoS protection", "");
+  add(1, "Support · " + $("sup").value, "");
+  if ($("mig").value) add(1, $("mig").value, "Discovery, wave planning & cut-over");
+  if ($("fde").value) add(1, $("fde").value, "Forward Deployed Engineering, monthly");
+
+  // drop empty groups
+  const out = lines.filter((l, i) => !l.group || (lines[i + 1] && !lines[i + 1].group));
+  t.block = num("blk") + t.disk;
+  return { region, dr, lines: out, t };
+}
+
+function render() {
+  const r = build();
+  $("ref").textContent = REF;
+  $("regionTag").textContent = r.region[1] + (r.dr ? " + DR " + r.dr[1] : "");
+  $("kpis").innerHTML = [
+    [fmt(r.t.vcpu), "vCPU"], [fmt(r.t.ram / 1024, 1) + " TB", "Memory"], [r.t.gpu ? fmt(r.t.gpu) : "–", "GPUs"],
+    [fmt(r.t.block, 1) + " TB", "Block storage"], [fmt(num("obj") + num("file"), 1) + " TB", "Object + file"], [fmt(r.t.inst), "Instances"],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+  $("sheet").innerHTML = `<thead><tr><th class="num">Qty</th><th>Service</th></tr></thead><tbody>` + r.lines.map((l) => l.group
+    ? `<tr class="group"><td colspan="2">${esc(l.group)}</td></tr>`
+    : `<tr><td class="num">${esc(l.qty)}</td><td><b>${esc(l.item)}</b>${l.sub ? `<span class="sub">${esc(l.sub)}</span>` : ""}</td></tr>`).join("") + "</tbody>";
+  $("printMeta").textContent = `${$("org").value || "Untitled"} · ${REF} · ${r.region[1]} (${r.region[0]}) · ${$("term").value} · ${new Date().toLocaleDateString("en-AU")}`;
+  window.__c = r;
+}
+
+function rows() {
+  const r = window.__c;
+  return [["Mjenzi Cloud — Cloud configuration sheet"], ["Reference", REF], ["Organisation", $("org").value], ["Primary region", `${r.region[1]} (${r.region[0]})`], ["DR region", r.dr ? `${r.dr[1]} (${r.dr[0]})` : "None"], ["Term", $("term").value], [],
+    ["Qty", "Service", "Detail"], ...r.lines.map((l) => l.group ? [l.group.toUpperCase()] : [l.qty, l.item, l.sub || ""]), [],
+    ["Total vCPU", r.t.vcpu], ["Total RAM (GB)", r.t.ram], ["GPUs", r.t.gpu], ["Block storage (TB)", r.t.block.toFixed(1)], ["Object storage (TB)", num("obj")], ["File storage (TB)", num("file")]];
+}
+
+$("f").addEventListener("input", render);
+$("f").addEventListener("change", (e) => { if (e.target.name === "region") fillDr(); render(); });
+$("f").addEventListener("click", (e) => { if (e.target.classList.contains("del")) { e.target.closest(".row-item").remove(); render(); } });
+$("addVm").addEventListener("click", () => { vmRow(); render(); });
+$("addGpu").addEventListener("click", () => { gpuRow(); render(); });
+$("csv").addEventListener("click", () => Mjenzi.download(`${REF}.csv`, Mjenzi.csv(rows())));
+$("send").addEventListener("click", () => {
+  Mjenzi.leadDialog({
+    type: "cloud", reference: REF, title: "Request pricing",
+    intro: "Send this configuration to Mjenzi and we'll come back with pricing for your chosen term, usually within one business day.",
+    summary: () => rows().map((r) => r.join(" | ")).join("\n"),
+    data: () => {
+      const r = window.__c;
+      return { region: r.region[0], drRegion: r.dr ? r.dr[0] : null, term: $("term").value, organisation: $("org").value, lines: r.lines, totals: r.t };
+    },
+  });
+});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.DS_Store
+api/leads.sqlite3
+api/form.env
+*.env
+!api/form.env.example
+zz-*
