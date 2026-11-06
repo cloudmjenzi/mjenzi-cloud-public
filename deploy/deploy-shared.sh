@@ -17,10 +17,13 @@ SSH="ssh -p $SSH_PORT -o BatchMode=yes"
 echo "==> Checking SSH key access to $TARGET:$SSH_PORT"
 $SSH "$TARGET" true || { echo "Key login failed. Run: ssh-copy-id -p $SSH_PORT $TARGET"; exit 1; }
 
+echo "==> Building blog"
+python3 blog/build.py
+
 echo "==> Uploading site to ~/$DOCROOT (existing files not in this repo are left alone)"
 rsync -az -e "$SSH" \
   --exclude '.git' --exclude '.gitignore' --exclude '.DS_Store' --exclude 'zz-*' \
-  --exclude 'deploy/' --exclude 'README.md' --exclude 'api/README.md' \
+  --exclude 'deploy/' --exclude 'blog/posts/' --exclude 'blog/build.py' --exclude 'README.md' --exclude 'api/README.md' \
   --exclude 'api/*.py' --exclude 'api/form.env*' --exclude 'api/config.php' --exclude 'api/*.sqlite3' \
   ./ "$TARGET:$DOCROOT/"
 

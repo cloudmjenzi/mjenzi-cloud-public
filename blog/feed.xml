@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Mjenzi Cloud blog</title>
+  <link>https://mjenzi.cloud/blog/</link>
+  <atom:link href="https://mjenzi.cloud/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Cloud, GPU and AI infrastructure in Africa and Australia.</description>
+  <language>en</language>
+  <item>
+    <title>Introducing the Mjenzi Cloud Platform</title>
+    <link>https://mjenzi.cloud/blog/introducing-mjenzi-cloud-platform.html</link>
+    <guid isPermaLink="true">https://mjenzi.cloud/blog/introducing-mjenzi-cloud-platform.html</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
+    <description>Wholesale and white-label cloud for Africa and Australia. Use our regions directly, resell them under your own brand, or have us run the stack inside your data centre.</description>
+    <category>Announcements</category>
+    <category>Cloud</category>
+    <category>Partners</category>
+  </item>
+  <item>
+    <title>How much GPU do you need to run an LLM?</title>
+    <link>https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html</link>
+    <guid isPermaLink="true">https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
+    <description>A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.</description>
+    <category>AI</category>
+    <category>GPU</category>
+    <category>Engineering</category>
+  </item>
+  <item>
+    <title>Data residency in Kenya, South Africa, Botswana and Australia: a practical guide</title>
+    <link>https://mjenzi.cloud/blog/data-residency-kenya-south-africa-botswana-australia.html</link>
+    <guid isPermaLink="true">https://mjenzi.cloud/blog/data-residency-kenya-south-africa-botswana-australia.html</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
+    <description>What the data protection laws in our four markets mean for where you host, and the questions to ask any cloud provider before you sign.</description>
+    <category>Sovereignty</category>
+    <category>Compliance</category>
+    <category>Africa</category>
+    <category>Australia</category>
+  </item>
+</channel>
+</rss>

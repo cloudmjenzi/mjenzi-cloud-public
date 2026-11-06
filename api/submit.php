@@ -10,6 +10,7 @@ const TYPES = [
     'assessment' => 'Cloud & AI assessment',
     'sizing'     => 'Server sizing quote request',
     'cloud'      => 'Cloud configuration pricing request',
+    'partner'    => 'Partner program enquiry',
 ];
 
 $cfg = mj_config();

@@ -10,26 +10,27 @@
     </svg>`;
 
   const links = [
-    ["home", "index.html#services", "Services"],
-    ["ai", "index.html#ai", "Mjenzi AI"],
-    ["fde", "index.html#fde", "FDE"],
-    ["network", "index.html#network", "Network"],
-    ["assessment", "assessment.html", "Assessment"],
-    ["sizing", "sizing.html", "Server Sizing"],
-    ["cloud", "cloud-config.html", "Cloud Config"],
+    ["platform", "/platform.html", "Cloud"],
+    ["ai", "/#ai", "Mjenzi AI"],
+    ["fde", "/#fde", "FDE"],
+    ["network", "/#network", "Network"],
+    ["assessment", "/assessment.html", "Assessment"],
+    ["sizing", "/sizing.html", "Sizing"],
+    ["cloud", "/cloud-config.html", "Cloud Config"],
+    ["blog", "/blog/", "Blog"],
   ];
 
   const header = document.createElement("header");
   header.className = "site-header";
   header.innerHTML = `
     <div class="wrap nav">
-      <a class="logo" href="index.html" aria-label="Mjenzi Cloud home">${logo}<span>Mjenzi<small>Cloud</small></span></a>
+      <a class="logo" href="/" aria-label="Mjenzi Cloud home">${logo}<span>Mjenzi<small>Cloud</small></span></a>
       <nav class="nav-links" id="navLinks" aria-label="Main">
         ${links.map(([k, h, t]) => `<a href="${h}" class="${k === page ? "active" : ""}">${t}</a>`).join("")}
       </nav>
       <div class="nav-cta">
         <a class="btn btn-ghost btn-sm btn-wa" href="https://wa.me/61405342017" target="_blank" rel="noopener" aria-label="WhatsApp us on +61 405 342 017" title="WhatsApp +61 405 342 017"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
-        <a class="btn btn-primary btn-sm" href="index.html#contact">Talk to us</a>
+        <a class="btn btn-primary btn-sm" href="/#contact">Talk to us</a>
         <button class="menu-btn" aria-label="Open menu" aria-expanded="false" id="menuBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -43,7 +44,7 @@
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <a class="logo" href="index.html">${logo}<span>Mjenzi<small>Cloud</small></span></a>
+          <a class="logo" href="/">${logo}<span>Mjenzi<small>Cloud</small></span></a>
           <p style="margin-top:14px;max-width:340px">Sovereign cloud, AI and infrastructure built for Africa and Australia. Points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra.</p>
           <p style="margin:0 0 6px">KE <a href="tel:+254719897190">+254 719 897 190</a> · AU <a href="tel:+61405342017">+61 405 342 017</a> · ZA <a href="tel:+27791448066">+27 79 144 8066</a> · BW <a href="tel:+26775535900">+267 75 535 900</a></p>
           <p style="margin:0"><a href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:kinyua@mjenzi.cloud">kinyua@mjenzi.cloud</a></p>
@@ -51,28 +52,31 @@
         <div>
           <h4>Platform</h4>
           <ul>
-            <li><a href="index.html#services">Infrastructure-as-a-Service</a></li>
-            <li><a href="index.html#ai">Mjenzi AI</a></li>
-            <li><a href="index.html#fde">Forward Deployed Engineering</a></li>
-            <li><a href="index.html#services">Enterprise SOC</a></li>
-            <li><a href="index.html#services">Servers &amp; Hardware</a></li>
+            <li><a href="/platform.html">Mjenzi Cloud Platform</a></li>
+            <li><a href="/platform.html#partners">White-label &amp; Wholesale</a></li>
+            <li><a href="/platform.html#edgepop">Mjenzi EdgePoP</a></li>
+            <li><a href="/#ai">Mjenzi AI</a></li>
+            <li><a href="/#fde">Forward Deployed Engineering</a></li>
+            <li><a href="/#services">Enterprise SOC</a></li>
+            <li><a href="/#services">Servers &amp; Hardware</a></li>
           </ul>
         </div>
         <div>
           <h4>Tools</h4>
           <ul>
-            <li><a href="assessment.html">Cloud &amp; AI Rapid Assessment</a></li>
-            <li><a href="sizing.html">Server Sizing &amp; Spec Sheet</a></li>
-            <li><a href="cloud-config.html">Cloud Configuration Sheet</a></li>
+            <li><a href="/assessment.html">Cloud &amp; AI Rapid Assessment</a></li>
+            <li><a href="/sizing.html">Server Sizing &amp; Spec Sheet</a></li>
+            <li><a href="/cloud-config.html">Cloud Configuration Sheet</a></li>
           </ul>
         </div>
         <div>
           <h4>Company</h4>
           <ul>
-            <li><a href="index.html#network">Locations</a></li>
-            <li><a href="index.html#customers">Customers</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="/#network">Locations</a></li>
+            <li><a href="/#customers">Customers</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
@@ -160,7 +164,7 @@ window.Mjenzi = {
         <div class="hp" aria-hidden="true"><label for="ld-web">Website</label><input id="ld-web" name="website" tabindex="-1" autocomplete="off"></div>
         <p class="form-status" role="status" aria-live="polite"></p>
         <div class="actions"><button type="submit" class="btn btn-primary">Send to Mjenzi</button><button type="button" class="btn btn-ghost dlg-cancel">Cancel</button></div>
-        <p class="hint">${opts.reference ? `Reference ${this.esc(opts.reference)} · ` : ""}We use your details only to respond to you. See our <a href="privacy.html" target="_blank" style="text-decoration:underline">Privacy Policy</a>.</p>
+        <p class="hint">${opts.reference ? `Reference ${this.esc(opts.reference)} · ` : ""}We use your details only to respond to you. See our <a href="/privacy.html" target="_blank" style="text-decoration:underline">Privacy Policy</a>.</p>
       </form>`;
     const form = dlg.querySelector("form");
     const close = () => dlg.close();

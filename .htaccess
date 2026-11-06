@@ -21,7 +21,7 @@ RewriteRule ^api/health/?$ api/submit.php?health=1 [L]
 RewriteRule ^api/leads\.csv$ api/leads.php [L]
 
 # Never serve source, config, docs or deploy files
-RewriteRule ^(deploy/|\.git|api/(lib|config|config\.example)\.php$|api/.*\.(py|md|sqlite3)$|README\.md$) - [F,L]
+RewriteRule ^(deploy/|blog/posts/|blog/build\.py|\.git|api/(lib|config|config\.example)\.php$|api/.*\.(py|md|sqlite3)$|README\.md$) - [F,L]
 </IfModule>
 
 <IfModule mod_headers.c>

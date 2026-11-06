@@ -10,12 +10,24 @@ Source for [mjenzi.cloud](https://mjenzi.cloud): sovereign cloud, GPU and AI inf
 | `assessment.html` | Cloud & AI Rapid Assessment (readiness score, maturity level, action plan) |
 | `sizing.html` | Server Sizing Configurator (bill of materials / spec sheet) |
 | `cloud-config.html` | Cloud Configuration Sheet (ready-to-quote cloud configuration) |
+| `platform.html` | Mjenzi Cloud Platform: products, white-label/wholesale partner program, EdgePoP |
+| `blog/` | Blog. Write posts in `blog/posts/*.md`; `blog/build.py` turns them into pages |
 | `privacy.html`, `404.html` | Privacy policy and not-found page |
 | `assets/` | Shared styles, header/footer script and favicon |
 | `api/` | Form backend (Python, standard library only). See [api/README.md](api/README.md) |
 | `deploy/` | Server setup and deploy scripts |
 
 Plain static HTML, CSS and JavaScript. No build step.
+
+## Writing a blog post
+
+1. Copy any file in `blog/posts/` and name it `YYYY-MM-DD-short-title.md`. The part after the date becomes the URL.
+2. Edit the front matter at the top (`title`, `date`, `summary`, optional `author`, `tags`, `image`, `draft: true`).
+3. Write the post in Markdown: `## headings`, lists, **bold**, [links](/sizing.html), tables, `> quotes` and code blocks.
+4. Run `python3 blog/build.py` to preview locally (it also refreshes the blog index, RSS feed, sitemap and the home page's latest posts).
+5. Deploy as usual. `deploy/deploy.sh` runs the build for you.
+
+Images go in `blog/images/` and are referenced as `/blog/images/name.jpg`.
 
 ## Run locally
 

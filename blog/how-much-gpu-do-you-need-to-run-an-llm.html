@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How much GPU do you need to run an LLM? — Mjenzi Cloud blog</title>
+  <meta name="description" content="A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html">
+  <link rel="alternate" type="application/rss+xml" title="Mjenzi Cloud blog" href="/blog/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How much GPU do you need to run an LLM? — Mjenzi Cloud blog">
+  <meta property="og:description" content="A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.">
+  <meta property="og:url" content="https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261106b">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How much GPU do you need to run an LLM?", "description": "A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.", "datePublished": "2026-11-06", "author": {"@type": "Organization", "name": "Mjenzi Cloud team"}, "publisher": {"@type": "Organization", "name": "Mjenzi Cloud", "url": "https://mjenzi.cloud"}, "mainEntityOfPage": "https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html"}</script>
+</head>
+<body data-page="blog">
+<article class="post">
+  <header class="post-head wrap">
+    <a class="back" href="/blog/">← All posts</a>
+    <div class="tchips"><a class="tchip" href="/blog/?tag=ai">AI</a><a class="tchip" href="/blog/?tag=gpu">GPU</a><a class="tchip" href="/blog/?tag=engineering">Engineering</a></div>
+    <h1>How much GPU do you need to run an LLM?</h1>
+    <p class="post-lede">A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.</p>
+    <div class="post-meta">Mjenzi Cloud team · <time datetime="2026-11-06">6 November 2026</time> · 3 min read</div>
+  </header>
+  <div class="wrap post-layout">
+    <div class="prose">
+<p>The first question in almost every AI infrastructure project is "which GPUs, and how many?" The answer depends mostly on one number: <strong>GPU memory (VRAM)</strong>. If the model and its working data don't fit, it won't run, or it will run painfully slowly.</p>
+<p>Here is the rule of thumb our engineers use.</p>
+<h2 id="step-1-memory-for-the-model-weights">Step 1: memory for the model weights</h2>
+<p>Multiply the number of parameters by the bytes used for each one:</p>
+<div class="table-wrap"><table><thead><tr><th>Precision</th><th>Bytes per parameter</th><th>8B model</th><th>70B model</th><th>405B model</th></tr></thead><tbody><tr><td>FP16 / BF16</td><td>2</td><td>16 GB</td><td>140 GB</td><td>810 GB</td></tr><tr><td>FP8 / INT8</td><td>1</td><td>8 GB</td><td>70 GB</td><td>405 GB</td></tr><tr><td>4-bit (e.g. AWQ, GPTQ)</td><td>about 0.5</td><td>4–5 GB</td><td>35–40 GB</td><td>about 200 GB</td></tr></tbody></table></div>
+<p>Lower precision saves memory and usually speeds things up. For most business uses, a well-made FP8 or 4-bit version of a model gives answers very close to the original.</p>
+<h2 id="step-2-memory-for-the-kv-cache">Step 2: memory for the KV cache</h2>
+<p>While generating text, the model stores attention data for every token in the conversation. This is the <strong>KV cache</strong>, and it grows with context length and the number of users served at once.</p>
+<p>For each token, the KV cache needs roughly:</p>
+<pre><code>2 × layers × KV heads × head size × bytes per value</code></pre>
+<p>For a 70B model like Llama 3 70B (80 layers, 8 KV heads, head size 128) at FP16, that is about <strong>0.33 MB per token</strong>. So:</p>
+<ul><li>one user with a 32,000-token context needs about <strong>10 GB</strong></li><li>20 users with 8,000-token contexts each need about <strong>52 GB</strong></li></ul>
+<p>The KV cache is why a model that "fits" on paper can still run out of memory in production.</p>
+<h2 id="step-3-add-headroom">Step 3: add headroom</h2>
+<p>Add about <strong>10–20%</strong> for the inference engine, activations and memory fragmentation. Engines such as vLLM reserve memory up front, so plan for the total.</p>
+<h2 id="worked-examples">Worked examples</h2>
+<div class="table-wrap"><table><thead><tr><th>Workload</th><th>Approximate memory</th><th>Good fit on Mjenzi Cloud</th></tr></thead><tbody><tr><td>8B model, FP16, internal chatbot</td><td>about 25 GB</td><td>1× L40S (48 GB)</td></tr><tr><td>70B model, 4-bit, small team</td><td>about 60 GB</td><td>1× RTX PRO 6000 (96 GB)</td></tr><tr><td>70B model, FP8, 20 concurrent users</td><td>about 140 GB</td><td>2× H100 (188 GB)</td></tr><tr><td>70B model, FP16, high throughput</td><td>about 220 GB</td><td>2× H200</td></tr><tr><td>405B model, FP8</td><td>about 500 GB</td><td>4× H200</td></tr></tbody></table></div>
+<p>These are starting points. Real throughput also depends on GPU speed, memory bandwidth, the inference engine, batch sizes and how long your prompts and answers are.</p>
+<h2 id="what-about-training-and-fine-tuning">What about training and fine-tuning?</h2>
+<p>Training needs far more memory than inference. Full fine-tuning with the common Adam optimiser and mixed precision needs about <strong>16 bytes per parameter</strong> before activations, so more than 1 TB for a 70B model. That means a multi-GPU cluster with a fast interconnect such as InfiniBand.</p>
+<p>Parameter-efficient methods such as <strong>LoRA</strong> and <strong>QLoRA</strong> only train a small set of extra weights. They can fine-tune a 70B model on one or two large GPUs, which is why they are the usual choice for adapting models to your own data.</p>
+<h2 id="try-it-with-your-own-numbers">Try it with your own numbers</h2>
+<p>Our <a href="/sizing.html">Server Sizing Configurator</a> does this maths for you. Choose a model size, precision, context length and number of users, and it estimates the GPU memory and recommends GPU servers, with a spec sheet you can download. When you're ready to run it, you can rent the same GPUs on <a href="/platform.html">Mjenzi Cloud</a> in Nairobi, Johannesburg or Sydney.</p>
+      <div class="post-cta">
+        <b>Talk to a Mjenzi engineer</b>
+        <span>Questions about this post or your own cloud and AI plans? We reply within one business day.</span>
+        <div class="actions"><a class="btn btn-primary btn-sm" href="/#contact">Contact us</a><a class="btn btn-ghost btn-sm" href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp</a></div>
+      </div>
+      <div class="share">Share:
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/intent/post?url=https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html&amp;text=How much GPU do you need to run an LLM?" target="_blank" rel="noopener">X</a>
+        <a href="https://wa.me/?text=How much GPU do you need to run an LLM?%20https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:?subject=How much GPU do you need to run an LLM?&amp;body=https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html">Email</a>
+      </div>
+      <div class="post-nav"><a href="/blog/data-residency-kenya-south-africa-botswana-australia.html"><small>← Older</small>Data residency in Kenya, South Africa, Botswana and Australia: a practical guide</a><a class="next" href="/blog/introducing-mjenzi-cloud-platform.html"><small>Newer →</small>Introducing the Mjenzi Cloud Platform</a></div>
+    </div>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#step-1-memory-for-the-model-weights">Step 1: memory for the model weights</a><a href="#step-2-memory-for-the-kv-cache">Step 2: memory for the KV cache</a><a href="#step-3-add-headroom">Step 3: add headroom</a><a href="#worked-examples">Worked examples</a><a href="#what-about-training-and-fine-tuning">What about training and fine-tuning?</a><a href="#try-it-with-your-own-numbers">Try it with your own numbers</a></nav>
+  </div>
+</article>
+<section class="alt" style="padding:64px 0">
+  <div class="wrap">
+    <div class="eyebrow">Keep reading</div>
+    <div class="grid g2 post-grid" style="margin-top:12px">
+      <a class="card post-card reveal" href="/blog/introducing-mjenzi-cloud-platform.html" data-tags="announcements cloud partners">
+        <div class="post-cover gen" aria-hidden="true"><span>Announcements</span></div>
+        <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 3 min read</div>
+        <h3>Introducing the Mjenzi Cloud Platform</h3>
+        <p>Wholesale and white-label cloud for Africa and Australia. Use our regions directly, resell them under your own brand, or have us run the stack inside your data centre.</p>
+        <div class="tchips"><span class="tchip">Announcements</span><span class="tchip">Cloud</span><span class="tchip">Partners</span></div>
+      </a>
+      <a class="card post-card reveal" href="/blog/data-residency-kenya-south-africa-botswana-australia.html" data-tags="sovereignty compliance africa australia">
+        <div class="post-cover gen" aria-hidden="true"><span>Sovereignty</span></div>
+        <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 4 min read</div>
+        <h3>Data residency in Kenya, South Africa, Botswana and Australia: a practical guide</h3>
+        <p>What the data protection laws in our four markets mean for where you host, and the questions to ask any cloud provider before you sign.</p>
+        <div class="tchips"><span class="tchip">Sovereignty</span><span class="tchip">Compliance</span><span class="tchip">Africa</span><span class="tchip">Australia</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+<script src="/assets/common.js?v=20261106b"></script>
+</body>
+</html>

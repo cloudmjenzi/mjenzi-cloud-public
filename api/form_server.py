@@ -6,7 +6,7 @@ Handles every form on the site with one endpoint:
 
     POST /api/submit   JSON body:
         {
-          "type":    "contact" | "assessment" | "sizing" | "cloud",
+          "type":    "contact" | "assessment" | "sizing" | "cloud" | "partner",
           "name", "email", "phone", "company", "topic", "message",
           "reference": "MJZ-SZ-...",          (tool sheets only)
           "summary":   "plain-text summary",   (tool sheets only)
@@ -64,7 +64,8 @@ MAIL_FROM = os.environ.get("MAIL_FROM", SMTP_USER)
 MAIL_TO = [a.strip() for a in os.environ.get("MAIL_TO", "cloudmjenzi@gmail.com").split(",") if a.strip()]
 
 TYPES = {"contact": "Website enquiry", "assessment": "Cloud & AI assessment",
-         "sizing": "Server sizing quote request", "cloud": "Cloud configuration pricing request"}
+         "sizing": "Server sizing quote request", "cloud": "Cloud configuration pricing request",
+         "partner": "Partner program enquiry"}
 MAX_BODY = 200_000
 RATE_LIMIT = 8          # submissions ...
 RATE_WINDOW = 15 * 60   # ... per 15 minutes per IP

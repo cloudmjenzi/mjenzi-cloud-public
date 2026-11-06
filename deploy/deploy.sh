@@ -19,10 +19,13 @@ SSH="ssh -p $SSH_PORT -o BatchMode=yes"
 echo "==> Checking SSH key access to $TARGET"
 $SSH "$TARGET" true || { echo "Can't log in with an SSH key. Run: ssh-copy-id -p $SSH_PORT $TARGET"; exit 1; }
 
+echo "==> Building blog"
+python3 blog/build.py
+
 echo "==> Uploading site"
 $SSH "$TARGET" "mkdir -p /var/www/mjenzi; command -v rsync >/dev/null || { command -v dnf >/dev/null && dnf install -y -q rsync || { apt-get update -qq && apt-get install -y -qq rsync; }; }"
 rsync -az --delete -e "$SSH" \
-  --exclude '.git' --exclude '.DS_Store' --exclude 'api/leads.sqlite3' --exclude 'api/form.env' --exclude 'zz-*' --exclude 'api/config.php' \
+  --exclude '.git' --exclude '.DS_Store' --exclude 'api/leads.sqlite3' --exclude 'api/form.env' --exclude 'zz-*' --exclude 'api/config.php' --exclude 'blog/posts/' --exclude 'blog/build.py' \
   ./ "$TARGET:/var/www/mjenzi/"
 
 if [ "${1:-}" = "--setup" ]; then

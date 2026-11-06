@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Mjenzi Cloud</title>
+  <meta name="description" content="News, guides and engineering notes on cloud, GPU and AI infrastructure in Africa and Australia.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Mjenzi Cloud blog" href="/blog/feed.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog — Mjenzi Cloud">
+  <meta property="og:description" content="News, guides and engineering notes on cloud, GPU and AI infrastructure in Africa and Australia.">
+  <meta property="og:url" content="https://mjenzi.cloud/blog/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261106b">
+</head>
+<body data-page="blog">
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="eyebrow">Blog</div>
+    <h1 style="font-size:clamp(2.2rem,5vw,3.4rem)">Notes from the cloud builders.</h1>
+    <p style="max-width:680px">News, practical guides and engineering notes on sovereign cloud, GPU infrastructure and AI in Africa and Australia.</p>
+    <div class="tchips filters" role="group" aria-label="Filter by topic"><button class="tchip active" data-tag="">All</button><button class="tchip" data-tag="africa">Africa</button><button class="tchip" data-tag="ai">AI</button><button class="tchip" data-tag="announcements">Announcements</button><button class="tchip" data-tag="australia">Australia</button><button class="tchip" data-tag="cloud">Cloud</button><button class="tchip" data-tag="compliance">Compliance</button><button class="tchip" data-tag="engineering">Engineering</button><button class="tchip" data-tag="gpu">GPU</button><button class="tchip" data-tag="partners">Partners</button><button class="tchip" data-tag="sovereignty">Sovereignty</button></div>
+  </div>
+</section>
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="grid g3 post-grid" id="posts">
+      <a class="card post-card reveal" href="/blog/introducing-mjenzi-cloud-platform.html" data-tags="announcements cloud partners">
+        <div class="post-cover gen" aria-hidden="true"><span>Announcements</span></div>
+        <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 3 min read</div>
+        <h3>Introducing the Mjenzi Cloud Platform</h3>
+        <p>Wholesale and white-label cloud for Africa and Australia. Use our regions directly, resell them under your own brand, or have us run the stack inside your data centre.</p>
+        <div class="tchips"><span class="tchip">Announcements</span><span class="tchip">Cloud</span><span class="tchip">Partners</span></div>
+      </a>
+      <a class="card post-card reveal" href="/blog/how-much-gpu-do-you-need-to-run-an-llm.html" data-tags="ai gpu engineering">
+        <div class="post-cover gen" aria-hidden="true"><span>AI</span></div>
+        <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 3 min read</div>
+        <h3>How much GPU do you need to run an LLM?</h3>
+        <p>A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.</p>
+        <div class="tchips"><span class="tchip">AI</span><span class="tchip">GPU</span><span class="tchip">Engineering</span></div>
+      </a>
+      <a class="card post-card reveal" href="/blog/data-residency-kenya-south-africa-botswana-australia.html" data-tags="sovereignty compliance africa australia">
+        <div class="post-cover gen" aria-hidden="true"><span>Sovereignty</span></div>
+        <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 4 min read</div>
+        <h3>Data residency in Kenya, South Africa, Botswana and Australia: a practical guide</h3>
+        <p>What the data protection laws in our four markets mean for where you host, and the questions to ask any cloud provider before you sign.</p>
+        <div class="tchips"><span class="tchip">Sovereignty</span><span class="tchip">Compliance</span><span class="tchip">Africa</span><span class="tchip">Australia</span></div>
+      </a>
+    </div>
+    <p class="empty" id="empty" hidden>No posts with that tag yet.</p>
+    <p style="margin-top:40px;color:var(--muted)">Follow along with the <a href="/blog/feed.xml" style="color:var(--accent)">RSS feed</a>.</p>
+  </div>
+</section>
+<script>
+  (function () {
+    const btns = document.querySelectorAll(".filters .tchip"), cards = document.querySelectorAll("#posts .post-card");
+    function apply(tag) {
+      let shown = 0;
+      cards.forEach((c) => { const ok = !tag || c.dataset.tags.split(" ").includes(tag); c.hidden = !ok; if (ok) { shown++; c.classList.add("in"); } });
+      btns.forEach((b) => b.classList.toggle("active", b.dataset.tag === tag));
+      document.getElementById("empty").hidden = shown > 0;
+    }
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const tag = b.dataset.tag; apply(tag);
+      history.replaceState(null, "", tag ? "?tag=" + tag : location.pathname);
+    }));
+    apply(new URLSearchParams(location.search).get("tag") || "");
+  })();
+</script>
+<script src="/assets/common.js?v=20261106b"></script>
+</body>
+</html>
