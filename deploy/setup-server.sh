@@ -25,6 +25,13 @@ if ss -ltnp 2>/dev/null | grep -E ':(80|443)\s' | grep -qv nginx; then
   echo "Stop it (e.g. 'systemctl disable --now apache2' or 'httpd') if it isn't needed, then re-run."; exit 1
 fi
 
+# Small VPSes (1 GB RAM) run out of memory during package installs without swap
+if ! swapon --show 2>/dev/null | grep -q . && [ "$(awk '/MemTotal/{print $2}' /proc/meminfo)" -lt 2000000 ]; then
+  say "Adding 2 GB swap"
+  fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile >/dev/null && swapon /swapfile
+  grep -q '^/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+fi
+
 say "Installing packages"
 if command -v apt-get >/dev/null; then
   export DEBIAN_FRONTEND=noninteractive
