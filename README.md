@@ -10,7 +10,10 @@ Source for [mjenzi.cloud](https://mjenzi.cloud): sovereign cloud, GPU and AI inf
 | `assessment.html` | Cloud & AI Rapid Assessment (readiness score, maturity level, action plan) |
 | `sizing.html` | Server Sizing Configurator (bill of materials / spec sheet) |
 | `cloud-config.html` | Cloud Configuration Sheet (ready-to-quote cloud configuration) |
-| `platform.html` | Mjenzi Cloud Platform: products, white-label/wholesale partner program, EdgePoP |
+| `cloud.html` | Cloud: use Mjenzi Cloud (service) or build a private cloud (hardware); resell programme |
+| `ai.html` | AI: rent GPUs / AI platform (service) or buy GPU servers and clusters (hardware) |
+| `infrastructure.html` | Server infrastructure: buy servers, storage and switches, or rent dedicated servers |
+| `platform.html` | Redirect to `cloud.html` (old URL) |
 | `blog/` | Blog. Write posts in `blog/posts/*.md`; `blog/build.py` turns them into pages |
 | `privacy.html`, `404.html` | Privacy policy and not-found page |
 | `assets/` | Shared styles, header/footer script and favicon |

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Infrastructure — Buy servers or rent dedicated servers | Mjenzi Cloud</title>
+  <meta name="description" content="High-performance AMD EPYC, Intel Xeon and GPU servers, storage and switches, preconfigured with your hypervisor, tested and delivered. Or rent dedicated servers in our regions.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/infrastructure.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Server Infrastructure — Mjenzi Cloud">
+  <meta property="og:description" content="Servers, storage and networking, preconfigured and delivered fast. Or rent dedicated servers.">
+  <meta property="og:url" content="https://mjenzi.cloud/infrastructure.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261107a">
+  <style>
+    .page-hero { --hero-glow: rgba(255,181,71,.14); }
+    .page-hero .eyebrow { color: var(--accent-2); }
+    .server { display: flex; flex-direction: column; }
+    .server .price { font-family: var(--display); font-size: 1.3rem; color: var(--accent-2); margin: 6px 0 8px; }
+    .server .price small { font-size: .75rem; color: var(--faint); font-family: var(--font); }
+    .server p { font-size: .88rem; flex: 1; }
+    .quote { font-size: 1.05rem; color: #c4cee3; max-width: 760px; margin: 0 auto; text-align: center; }
+    .quote footer { margin-top: 14px; font-size: .88rem; color: var(--faint); }
+  </style>
+</head>
+<body data-page="infra">
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Server infrastructure</div>
+    <h1>Servers, storage and networking, <span class="grad">built and delivered.</span></h1>
+    <p class="lede">Buy high-performance hardware that arrives preconfigured and tested, ready to plug in. Or skip the hardware and rent dedicated servers in our regions.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap ways">
+    <div class="way hw reveal">
+      <span class="way-label">Build yours · hardware</span>
+      <h3>Buy servers &amp; hardware</h3>
+      <p>We supply the hardware, set it up with your choice of software, test it, and deliver it. Our engineers can install it too.</p>
+      <div class="terms"><span>You own it</span><span>One-off purchase</span><span>Warranty &amp; support</span></div>
+      <ul class="ticks">
+        <li>AMD EPYC and Intel Xeon servers</li>
+        <li>GPU servers for AI (4 or 8 GPUs)</li>
+        <li>Storage, network switches and racks</li>
+        <li>Preloaded with VMware, Proxmox, Hyper-V, OpenStack or Kubernetes</li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="/sizing.html" style="background:var(--accent-2);color:#2a1a00;box-shadow:0 8px 30px rgba(255,181,71,.25)">Size your servers</a><a class="btn btn-ghost" href="#servers">See popular servers</a></div>
+    </div>
+    <div class="way svc reveal">
+      <span class="way-label">Use ours · service</span>
+      <h3>Rent dedicated servers</h3>
+      <p>Get a whole physical server just for you, hosted and looked after in our regions. No hardware to buy, ship or maintain.</p>
+      <div class="terms"><span>Pay monthly</span><span>Hosted by us</span><span>Hardware failures are our problem</span></div>
+      <ul class="ticks">
+        <li>Same server models as we sell</li>
+        <li>On the same private network as Mjenzi Cloud</li>
+        <li>In Nairobi, Johannesburg, Gaborone, Sydney or Canberra</li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="/?topic=baremetal#contact">Ask for a price</a><a class="btn btn-ghost" href="/cloud.html">See the cloud</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="servers" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--accent-2)">Popular servers</div>
+      <h2>Preconfigured. Tested. Delivered fast.</h2>
+      <p>Starting prices for a base configuration. Every server is built to your spec. Not sure what you need? <a href="/sizing.html" style="color:var(--accent-2)">Use the sizing tool</a>.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card server reveal"><span class="tag teal">1U · AMD EPYC</span><h3>HA2 | RS700-E11</h3><div class="price">$4,592 <small>USD from</small></div><p>Dual-socket EPYC 7003, up to 32 DIMMs, 12 NVMe, one dual-slot GPU option.</p></div>
+      <div class="card server reveal"><span class="tag teal">1U · Intel Xeon</span><h3>S6X | D54X-1U</h3><div class="price">$5,691 <small>USD from</small></div><p>5th/4th Gen Xeon Scalable, DDR5, PCIe 5.0, up to 16× E1.S NVMe, 400GbE ready.</p></div>
+      <div class="card server reveal"><span class="tag ai">2U · 4 GPU</span><h3>AHG2 | ESC4000A-E12</h3><div class="price">$5,441 <small>USD from</small></div><p>EPYC 9004, four dual-slot GPUs, liquid cooling option, 8 PCIe 5.0 slots.</p></div>
+      <div class="card server reveal"><span class="tag ai">4U · 8 GPU</span><h3>AHG1 | ESC8000A-E12P</h3><div class="price">$18,954 <small>USD from</small></div><p>Dual EPYC 9004, eight dual-slot GPUs, PCIe 5.0 switch, 4× 3000W Titanium PSUs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--accent-2)">How buying works</div>
+      <h2>From spec sheet to running server.</h2>
+    </div>
+    <div class="steps reveal">
+      <div><b>Size</b><span>Use the sizing tool or tell us your workloads. We recommend the right hardware.</span></div>
+      <div><b>Quote</b><span>A clear quote with a full spec sheet. No surprises.</span></div>
+      <div><b>Build &amp; test</b><span>We set up your hypervisor or OS and test everything before it ships.</span></div>
+      <div><b>Deliver &amp; support</b><span>Delivered to you, installed if you like, and supported after go-live.</span></div>
+    </div>
+    <blockquote class="quote reveal" style="margin-top:56px">“Mjenzi Cloud have supplied us several nodes which came fully configured with our hypervisor of choice. We have placed two more orders since our first purchase as servers are the fastest and the most cost effective we have ever held.”<footer><b>Sys Admin</b> · Telco Provider</footer></blockquote>
+  </div>
+</section>
+
+<section class="cta-band alt">
+  <div class="wrap reveal">
+    <h2>Want us to build a whole cloud on it?</h2>
+    <p style="max-width:600px;margin:0 auto">We can turn your servers into a <a href="/cloud.html#private" style="color:var(--accent)">private cloud</a> or an <a href="/ai.html" style="color:var(--accent-3)">AI cluster</a>, and our <a href="/#fde" style="color:var(--accent-3)">FDE engineers</a> can migrate your systems onto it.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/?topic=servers#contact">Get a hardware quote</a>
+      <a class="btn btn-ghost" href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp us</a>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/common.js?v=20261107a"></script>
+</body>
+</html>

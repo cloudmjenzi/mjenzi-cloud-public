@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=20261106b">
+  <link rel="stylesheet" href="assets/styles.css?v=20261107a">
   <style>
     .progress { height: 6px; background: rgba(255,255,255,.06); border-radius: 6px; overflow: hidden; margin: 10px 0 4px; }
     .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-3)); transition: width .3s; }
@@ -154,39 +154,39 @@
   </div>
 </section>
 
-<script src="assets/common.js?v=20261106b"></script>
+<script src="assets/common.js?v=20261107a"></script>
 <script>
 const DIMS = [
   { key: "strategy", name: "Strategy", color: "#2ee6c5", qs: [
     ["Do you have a documented cloud strategy?", ["No strategy yet", "Informal ideas", "Documented, partly followed", "Documented, funded and governed"]],
     ["Is there an executive sponsor for cloud and AI?", ["No", "Interested, not committed", "Named sponsor", "Sponsor with budget and KPIs"]],
     ["How is cloud spend planned and tracked?", ["Not tracked", "Tracked after the fact", "Budgeted per project", "FinOps with forecasting"]],
-  ], rec: ["Set a cloud & AI strategy", "Run a half-day strategy workshop to agree goals, budget, a target architecture and a 12-month roadmap with an executive sponsor."], svc: ["Consulting", "Forward Deployed Engineering"] },
+  ], rec: ["Set a cloud & AI strategy", "Run a half-day strategy workshop to agree goals, budget, a target architecture and a 12-month roadmap with an executive sponsor."], svc: ["FDE (engineers & consulting)"] },
   { key: "data", name: "Data", color: "#7b8cff", qs: [
     ["Where does your key business data live?", ["Spreadsheets & silos", "Several unconnected systems", "Central database or warehouse", "Governed data platform"]],
     ["How well do you know what data is sensitive?", ["Not classified", "Some awareness", "Classified for key systems", "Fully classified with owners"]],
     ["Can teams access clean data for analytics or AI?", ["Rarely", "With a lot of manual work", "For some use cases", "Self-service, documented"]],
-  ], rec: ["Build a data foundation", "Classify sensitive data, consolidate key sources into a governed platform in-region, and set clear data owners before scaling AI."], svc: ["Infrastructure-as-a-Service", "Consulting"] },
+  ], rec: ["Build a data foundation", "Classify sensitive data, consolidate key sources into a governed platform in-region, and set clear data owners before scaling AI."], svc: ["Mjenzi Cloud", "FDE (engineers & consulting)"] },
   { key: "infra", name: "Infrastructure", color: "#ffb547", qs: [
     ["Where do your workloads run today?", ["On-prem, ageing hardware", "On-prem, mostly current", "Hybrid on-prem + cloud", "Cloud-first, automated"]],
     ["How do you deploy and change infrastructure?", ["Manually, ad hoc", "Manual with documentation", "Some scripts / templates", "Infrastructure-as-code & CI/CD"]],
     ["Do you use containers or Kubernetes?", ["No", "Experimenting", "Some production apps", "Standard platform"]],
-  ], rec: ["Modernise your infrastructure", "Move ageing workloads to Mjenzi IaaS or refreshed servers, introduce infrastructure-as-code, and stand up a managed Kubernetes platform."], svc: ["Infrastructure-as-a-Service", "Servers & Hardware"] },
+  ], rec: ["Modernise your infrastructure", "Move ageing workloads to Mjenzi Cloud or to new servers we build for you, introduce infrastructure-as-code, and stand up a managed Kubernetes platform."], svc: ["Mjenzi Cloud", "Servers & hardware"] },
   { key: "security", name: "Security & compliance", color: "#ff6b6b", qs: [
     ["How is security monitored?", ["Not monitored", "Antivirus / firewall only", "Logs reviewed periodically", "24/7 SOC with response"]],
     ["Do you have tested backup and disaster recovery?", ["No backups", "Backups, never tested", "Backups tested occasionally", "DR tested, RTO/RPO met"]],
     ["How do you handle data residency and regulation?", ["Not considered", "Aware, not addressed", "Addressed for key systems", "Audited and compliant"]],
-  ], rec: ["Close security & resilience gaps", "Put critical systems under 24/7 eSOC monitoring, implement tested Veeam backup with offsite copies in a second region, and keep regulated data in-country."], svc: ["Enterprise SOC", "Infrastructure-as-a-Service"] },
+  ], rec: ["Close security & resilience gaps", "Put critical systems under 24/7 eSOC monitoring, implement tested Veeam backup with offsite copies in a second region, and keep regulated data in-country."], svc: ["Mjenzi Cloud (backup & security)"] },
   { key: "people", name: "People & operations", color: "#3ddc84", qs: [
     ["Do you have in-house cloud skills?", ["None", "One or two people", "A small team", "Dedicated platform team"]],
     ["How is IT support delivered?", ["Reactive, best effort", "Business hours only", "Defined SLAs", "24/7 with automation"]],
     ["How quickly can you ship a new system to production?", ["Months+", "Several weeks", "A couple of weeks", "Days"]],
-  ], rec: ["Boost delivery capacity", "Embed a Forward Deployed Engineering pod to deliver your first projects while upskilling your team, then hand over with runbooks."], svc: ["Forward Deployed Engineering", "X-as-a-Service"] },
+  ], rec: ["Boost delivery capacity", "Embed a Forward Deployed Engineering pod to deliver your first projects while upskilling your team, then hand over with runbooks."], svc: ["FDE (engineers & consulting)"] },
   { key: "ai", name: "AI adoption", color: "#c58bff", qs: [
     ["Where are you with AI today?", ["Not started", "Staff use public AI tools", "Pilots / proofs of concept", "AI in production"]],
     ["Have you identified AI use cases with clear value?", ["No", "Ideas only", "A shortlist with owners", "Prioritised backlog with ROI"]],
     ["Do you have access to GPU compute for AI?", ["None", "Public cloud ad hoc", "Some dedicated capacity", "Private GPU platform"]],
-  ], rec: ["Launch a governed AI programme", "Pick one high-value use case, run it on Mjenzi AI in-region with a private model, and set an AI usage policy so staff stop pasting data into public tools."], svc: ["Mjenzi AI", "Forward Deployed Engineering"] },
+  ], rec: ["Launch a governed AI programme", "Pick one high-value use case, run it on Mjenzi AI in-region with a private model, and set an AI usage policy so staff stop pasting data into public tools."], svc: ["Mjenzi AI", "FDE (engineers & consulting)"] },
 ];
 const TOTAL_Q = DIMS.reduce((a, d) => a + d.qs.length, 0);
 
@@ -285,9 +285,9 @@ function buildPlan(res, overall, lvl) {
   const score = {};
   sorted.slice(0, 3).forEach((d, i) => d.svc.forEach((s) => (score[s] = (score[s] || 0) + (3 - i))));
   if (goals.includes("Adopt AI / GenAI")) score["Mjenzi AI"] = (score["Mjenzi AI"] || 0) + 3;
-  if (goals.includes("Improve security")) score["Enterprise SOC"] = (score["Enterprise SOC"] || 0) + 3;
-  if (goals.includes("Migrate from on-prem") || goals.includes("Cut infrastructure cost")) score["Infrastructure-as-a-Service"] = (score["Infrastructure-as-a-Service"] || 0) + 3;
-  if (goals.includes("Disaster recovery")) score["Backup & DR"] = (score["Backup & DR"] || 0) + 3;
+  if (goals.includes("Improve security")) score["Mjenzi Cloud (backup & security)"] = (score["Mjenzi Cloud (backup & security)"] || 0) + 3;
+  if (goals.includes("Migrate from on-prem") || goals.includes("Cut infrastructure cost")) score["Mjenzi Cloud"] = (score["Mjenzi Cloud"] || 0) + 3;
+  if (goals.includes("Disaster recovery")) score["Mjenzi Cloud (backup & security)"] = (score["Mjenzi Cloud (backup & security)"] || 0) + 3;
   const top = Object.entries(score).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([s]) => s);
   document.getElementById("services").innerHTML = top.map((s) => `<span class="svc-chip" style="font-size:.85rem;padding:6px 12px">${s}</span>`).join("");
 

@@ -1,7 +1,7 @@
 ---
 title: Introducing the Mjenzi Cloud Platform
 date: 2026-11-06
-summary: Wholesale and white-label cloud for Africa and Australia. Use our regions directly, resell them under your own brand, or have us run the stack inside your data centre.
+summary: In-country cloud for Africa and Australia. Use ours and pay monthly, or have us build the same cloud on hardware you own.
 author: Mjenzi Cloud team
 tags: Announcements, Cloud, Partners
 ---
@@ -21,7 +21,7 @@ That is what we have built. Today we are bringing it together as the **Mjenzi Cl
 ## What's on the platform
 
 - **Virtual compute**: KVM virtual machines on all-NVMe storage, with block storage and snapshots.
-- **GPU cloud**: dedicated NVIDIA and AMD GPUs for training, inference, rendering and VDI, as part of [Mjenzi AI](/#ai).
+- **GPU cloud**: dedicated NVIDIA GPUs for training and running AI models, as part of [Mjenzi AI](/ai.html).
 - **Bare metal**: single-tenant servers on the same private network as your VMs.
 - **Object storage**: S3-compatible, so your existing tools and backup software just work.
 - **Backup-as-a-Service**: Veeam-powered backup for servers, databases and Microsoft 365, with disaster recovery between regions.
@@ -30,19 +30,19 @@ That is what we have built. Today we are bringing it together as the **Mjenzi Cl
 
 Everything runs on open technology: OpenStack, KVM, Ceph and Kubernetes. Your images, data and automation move in and out freely.
 
-## Three ways to use it
+## Two ways to get it
 
-### 1. Direct
+*Mjenzi* is Swahili for "builder", and that's what we do: we build cloud, AI and server infrastructure. You choose whether to rent ours or own your own.
 
-Run your own workloads on Mjenzi Cloud, with local support and in-country hosting. Start with the [Cloud Configuration Sheet](/cloud-config.html) to put together a configuration you can get priced.
+### 1. Use ours (a service)
 
-### 2. White-label and wholesale
+Run your workloads in our regions and pay monthly, with local support and in-country hosting. Start with the [Cloud Configuration Sheet](/cloud-config.html) to put together a setup we can price.
 
-MSPs, telcos and system integrators can sell Mjenzi Cloud **as their own product**. Your logo, colours and portal domain. Your price lists for each reseller and customer. Usage exports for your billing system. We run the infrastructure; you own the customer relationship and the margin.
+### 2. Build yours (hardware you own)
 
-### 3. Mjenzi EdgePoP
+We supply the servers, storage and switches, then build the same open cloud in your data centre. You own the hardware, and we can run it for you if you like. See [private cloud](/cloud.html#private).
 
-For data centre operators, telcos and large enterprises that want a cloud inside their own building. We supply, install and operate the full Mjenzi Cloud stack on site, starting at about half a rack, connected to your networks and joined to our regions for backup and burst capacity.
+Either way, our [FDE engineers](/#fde) can help you plan, migrate and hand over. And if you're an MSP, telco or IT reseller, you can [sell our cloud under your own brand](/cloud.html#partners).
 
 ## Why now
 
@@ -50,4 +50,4 @@ Demand for AI and for sovereign hosting is rising across both continents at the 
 
 The Mjenzi Cloud Platform lets them launch in weeks instead of years.
 
-> Want to bring cloud to your market under your own brand? [Talk to our partner team](/platform.html#partners).
+> Not sure whether to rent or own? [Talk to an engineer](/#contact) and we'll compare both for you.

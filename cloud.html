@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloud — Use Mjenzi Cloud or build your own private cloud</title>
+  <meta name="description" content="Use Mjenzi Cloud in Nairobi, Johannesburg, Gaborone, Sydney and Canberra and pay monthly, or have us build a private cloud on hardware you own. Virtual and dedicated servers, storage, Kubernetes, backup and security.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mjenzi.cloud/cloud.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cloud — Use Mjenzi Cloud or build your own">
+  <meta property="og:description" content="In-country cloud for Africa and Australia. Rent ours, or we build yours.">
+  <meta property="og:url" content="https://mjenzi.cloud/cloud.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261107a">
+  <style>
+    .prod { display: flex; flex-direction: column; }
+    .prod h3 { margin-bottom: 8px; }
+    .prod p { margin-bottom: 0; }
+    .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+    .rack { border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 22px; background: var(--surface); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .82rem; }
+    .rack .u { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: rgba(255,255,255,.02); }
+    .rack .u span:last-child { color: var(--muted); text-align: right; }
+    .rack .u.net { border-color: rgba(255,181,71,.4); }
+    .rack .cap { color: var(--muted); margin: 12px 0 0; font-family: Inter, sans-serif; font-size: .85rem; }
+    .regions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .regions span { border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 14px; font-size: .9rem; }
+    .regions code { color: var(--accent); font-size: .8rem; margin-left: 6px; }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="cloud">
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Cloud</div>
+    <h1>Use our cloud, or have us <span class="grad">build yours</span>.</h1>
+    <p class="lede">Run your servers, storage and apps in-country, in Africa or Australia. Rent capacity on Mjenzi Cloud and pay monthly, or own the hardware and let us build the same cloud for you.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap ways">
+    <div class="way svc reveal">
+      <span class="way-label">Use ours · service</span>
+      <h3>Mjenzi Cloud</h3>
+      <p>Everything runs in our regions. You choose what you need and pay a monthly bill. No hardware to buy or maintain.</p>
+      <div class="terms"><span>Pay monthly</span><span>Up and running in days</span><span>Grow or shrink any time</span></div>
+      <ul class="ticks">
+        <li>Hosted in Nairobi, Johannesburg, Gaborone, Sydney or Canberra</li>
+        <li>Your data stays in the country you choose</li>
+        <li>We run, patch and monitor the platform 24/7</li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="/cloud-config.html">Price a cloud setup</a><a class="btn btn-ghost" href="#products">What's included</a></div>
+    </div>
+    <div class="way hw reveal">
+      <span class="way-label">Build yours · hardware</span>
+      <h3>Private cloud</h3>
+      <p>We supply the servers, storage and switches, and build a private cloud in your data centre. You own the hardware.</p>
+      <div class="terms"><span>You own it</span><span>On your premises</span><span>Optional: we run it for you</span></div>
+      <ul class="ticks">
+        <li>Same open cloud software as Mjenzi Cloud</li>
+        <li>Data never leaves your building</li>
+        <li>Can link to our regions for backup and extra capacity</li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="/sizing.html" style="background:var(--accent-2);color:#2a1a00;box-shadow:0 8px 30px rgba(255,181,71,.25)">Size your hardware</a><a class="btn btn-ghost" href="#private">How it works</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What's in Mjenzi Cloud</div>
+      <h2>Six building blocks. Use one or all of them.</h2>
+      <p>They all share one private network, so they work together as one environment. Need GPUs? See <a href="/ai.html" style="color:var(--accent-3)">AI</a>.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>Virtual servers</h3>
+        <p>Linux and Windows virtual machines on fast NVMe storage, in sizes from small to very large.</p>
+      </article>
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+        <h3>Dedicated servers</h3>
+        <p>A whole physical server just for you, for databases and software licensed per server.</p>
+      </article>
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+        <h3>Storage</h3>
+        <p>Disks for your servers, plus S3-compatible object storage for files, archives and data.</p>
+      </article>
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg></div>
+        <h3>Backup &amp; disaster recovery</h3>
+        <p>Veeam backup for your servers and data, with a copy in a second region if you need it.</p>
+      </article>
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7z"/><path d="M12 22V12M3.3 7L12 12l8.7-5"/></svg></div>
+        <h3>Kubernetes</h3>
+        <p>Managed clusters for container apps. We handle upgrades and monitoring.</p>
+      </article>
+      <article class="card prod reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Network &amp; security</h3>
+        <p>Private networks, links to your office or data centre, firewalls and 24/7 security monitoring.</p>
+      </article>
+    </div>
+    <div class="regions reveal" style="margin-top:36px">
+      <span>Nairobi<code>af-east-nbo1</code></span>
+      <span>Johannesburg<code>af-south-jnb1</code></span>
+      <span>Gaborone<code>af-south-gbe1</code></span>
+      <span>Sydney<code>au-east-syd1</code></span>
+      <span>Canberra<code>au-east-cbr1</code></span>
+    </div>
+    <p class="reveal" style="margin-top:18px;font-size:.92rem;color:var(--faint)">Built on open technology (OpenStack, KVM, Ceph, Kubernetes), so there's no lock-in. Your data and servers can move in and out freely.</p>
+  </div>
+</section>
+
+<section id="private">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="eyebrow" style="color:var(--accent-2)">Build yours</div>
+      <h2>A private cloud on hardware you own.</h2>
+      <p>For organisations that must keep everything on their own premises, or that would rather own than rent. We do the whole job.</p>
+      <ul class="ticks hw" style="margin-top:20px">
+        <li><b>Size it:</b> we work out the servers, storage and switches you need.</li>
+        <li><b>Supply it:</b> hardware is preconfigured and tested before it ships.</li>
+        <li><b>Build it:</b> we install the cloud software and connect it to your network.</li>
+        <li><b>Run it (optional):</b> we can monitor, patch and support it 24/7. We call this Mjenzi EdgePoP.</li>
+      </ul>
+      <div class="actions" style="margin-top:26px"><a class="btn btn-ghost" href="/?topic=private#contact">Talk to us about a private cloud</a></div>
+    </div>
+    <div class="rack reveal" aria-label="Example private cloud rack">
+      <div class="u net"><span>2× network switches</span><span>Connects to your network</span></div>
+      <div class="u"><span>3× compute + storage servers</span><span>Runs your VMs and data</span></div>
+      <div class="u"><span>Backup server</span><span>Local backups</span></div>
+      <div class="u"><span>Link to Mjenzi Cloud</span><span>Off-site backup &amp; extra capacity</span></div>
+      <p class="cap">A typical starting size. Add servers as you grow.</p>
+    </div>
+  </div>
+</section>
+
+<section id="partners" class="alt">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="eyebrow">For MSPs, telcos and IT resellers</div>
+      <h2>Sell our cloud under your own brand.</h2>
+      <p>Offer cloud to your customers without building one. We run the platform; you keep the brand, the customer and the margin.</p>
+      <ul class="ticks" style="margin-top:20px">
+        <li>Your logo and your web address on the customer portal</li>
+        <li>Your own prices for your customers</li>
+        <li>No hardware to buy to get started</li>
+      </ul>
+      <div class="actions" style="margin-top:26px"><button class="btn btn-primary" type="button" data-partner>Become a partner</button></div>
+    </div>
+    <div class="rack reveal" aria-label="How reselling works">
+      <div class="u"><span>Your customers</span><span>Buy from you</span></div>
+      <div class="u"><span>cloud.yourbrand.com</span><span>Your brand &amp; prices</span></div>
+      <div class="u net"><span>Mjenzi Cloud</span><span>We run it 24/7</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap reveal">
+    <h2>Not sure which option suits you?</h2>
+    <p style="max-width:600px;margin:0 auto">Tell us what you run today. We'll compare renting from us with owning your own and recommend the simpler, cheaper one.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/?topic=cloud#contact">Talk to an engineer</a>
+      <a class="btn btn-ghost" href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp us</a>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/common.js?v=20261107a"></script>
+<script>
+  document.querySelectorAll("[data-partner]").forEach((b) => b.addEventListener("click", () => {
+    Mjenzi.leadDialog({
+      type: "partner",
+      title: "Resell Mjenzi Cloud",
+      intro: "Tell us a little about your business and customers. We'll get back to you, usually within one business day.",
+      reference: Mjenzi.ref("MJZ-PT"),
+      summary: () => "Interested in reselling Mjenzi Cloud under their own brand.",
+      data: () => ({ interest: "partner-program", page: location.pathname }),
+    });
+  }));
+</script>
+</body>
+</html>

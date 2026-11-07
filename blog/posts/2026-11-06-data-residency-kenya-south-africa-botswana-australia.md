@@ -53,6 +53,6 @@ For government workloads, the Digital Transformation Agency's **Hosting Certific
 
 ## How Mjenzi Cloud helps
 
-Every Mjenzi Cloud region is designed to keep data **in-country by default**: Nairobi, Johannesburg, Gaborone, Sydney and Canberra. Backups and disaster recovery stay in the region you choose unless you ask for a copy elsewhere, and our [Mjenzi EdgePoP](/platform.html#edgepop) can run the whole cloud inside your own facility.
+Every Mjenzi Cloud region is designed to keep data **in-country by default**: Nairobi, Johannesburg, Gaborone, Sydney and Canberra. Backups and disaster recovery stay in the region you choose unless you ask for a copy elsewhere, and if you need everything on your own premises, we can [build a private cloud on hardware you own](/cloud.html#private).
 
 If you are not sure where to start, our [Cloud & AI Rapid Assessment](/assessment.html) includes the main data protection considerations for your country and takes about five minutes.

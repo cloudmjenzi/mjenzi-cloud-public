@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/styles.css?v=20261106b">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261107a">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How much GPU do you need to run an LLM?", "description": "A practical rule of thumb for sizing GPU memory for large language models, with worked examples from 8B to 405B parameters.", "datePublished": "2026-11-06", "author": {"@type": "Organization", "name": "Mjenzi Cloud team"}, "publisher": {"@type": "Organization", "name": "Mjenzi Cloud", "url": "https://mjenzi.cloud"}, "mainEntityOfPage": "https://mjenzi.cloud/blog/how-much-gpu-do-you-need-to-run-an-llm.html"}</script>
 </head>
 <body data-page="blog">
@@ -52,7 +52,7 @@
 <p>Training needs far more memory than inference. Full fine-tuning with the common Adam optimiser and mixed precision needs about <strong>16 bytes per parameter</strong> before activations, so more than 1 TB for a 70B model. That means a multi-GPU cluster with a fast interconnect such as InfiniBand.</p>
 <p>Parameter-efficient methods such as <strong>LoRA</strong> and <strong>QLoRA</strong> only train a small set of extra weights. They can fine-tune a 70B model on one or two large GPUs, which is why they are the usual choice for adapting models to your own data.</p>
 <h2 id="try-it-with-your-own-numbers">Try it with your own numbers</h2>
-<p>Our <a href="/sizing.html">Server Sizing Configurator</a> does this maths for you. Choose a model size, precision, context length and number of users, and it estimates the GPU memory and recommends GPU servers, with a spec sheet you can download. When you're ready to run it, you can rent the same GPUs on <a href="/platform.html">Mjenzi Cloud</a> in Nairobi, Johannesburg or Sydney.</p>
+<p>Our <a href="/sizing.html">Server Sizing Configurator</a> does this maths for you. Choose a model size, precision, context length and number of users, and it estimates the GPU memory and recommends GPU servers, with a spec sheet you can download. When you're ready to run it, you can <a href="/ai.html">rent the GPUs from us or buy your own servers</a>, and we'll help you work out which is cheaper.</p>
       <div class="post-cta">
         <b>Talk to a Mjenzi engineer</b>
         <span>Questions about this post or your own cloud and AI plans? We reply within one business day.</span>
@@ -77,7 +77,7 @@
         <div class="post-cover gen" aria-hidden="true"><span>Announcements</span></div>
         <div class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · 3 min read</div>
         <h3>Introducing the Mjenzi Cloud Platform</h3>
-        <p>Wholesale and white-label cloud for Africa and Australia. Use our regions directly, resell them under your own brand, or have us run the stack inside your data centre.</p>
+        <p>In-country cloud for Africa and Australia. Use ours and pay monthly, or have us build the same cloud on hardware you own.</p>
         <div class="tchips"><span class="tchip">Announcements</span><span class="tchip">Cloud</span><span class="tchip">Partners</span></div>
       </a>
       <a class="card post-card reveal" href="/blog/data-residency-kenya-south-africa-botswana-australia.html" data-tags="sovereignty compliance africa australia">
@@ -90,6 +90,6 @@
     </div>
   </div>
 </section>
-<script src="/assets/common.js?v=20261106b"></script>
+<script src="/assets/common.js?v=20261107a"></script>
 </body>
 </html>

@@ -63,4 +63,4 @@ Parameter-efficient methods such as **LoRA** and **QLoRA** only train a small se
 
 ## Try it with your own numbers
 
-Our [Server Sizing Configurator](/sizing.html) does this maths for you. Choose a model size, precision, context length and number of users, and it estimates the GPU memory and recommends GPU servers, with a spec sheet you can download. When you're ready to run it, you can rent the same GPUs on [Mjenzi Cloud](/platform.html) in Nairobi, Johannesburg or Sydney.
+Our [Server Sizing Configurator](/sizing.html) does this maths for you. Choose a model size, precision, context length and number of users, and it estimates the GPU memory and recommends GPU servers, with a spec sheet you can download. When you're ready to run it, you can [rent the GPUs from us or buy your own servers](/ai.html), and we'll help you work out which is cheaper.

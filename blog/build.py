@@ -29,8 +29,8 @@ ROOT = Path(__file__).resolve().parent.parent
 BLOG = ROOT / "blog"
 POSTS = BLOG / "posts"
 SITE = "https://mjenzi.cloud"
-ASSET_V = "20261106b"  # bump when assets/styles.css or assets/common.js change
-STATIC_PAGES = [("/", "1.0"), ("/platform.html", "0.9"), ("/assessment.html", "0.8"),
+ASSET_V = "20261107a"  # bump when assets/styles.css or assets/common.js change
+STATIC_PAGES = [("/", "1.0"), ("/cloud.html", "0.9"), ("/ai.html", "0.9"), ("/infrastructure.html", "0.9"), ("/assessment.html", "0.8"),
                 ("/sizing.html", "0.8"), ("/cloud-config.html", "0.8"), ("/blog/", "0.7"),
                 ("/privacy.html", "0.3")]
 

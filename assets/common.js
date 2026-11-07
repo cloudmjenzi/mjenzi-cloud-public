@@ -10,15 +10,15 @@
     </svg>`;
 
   const links = [
-    ["platform", "/platform.html", "Cloud"],
-    ["ai", "/#ai", "Mjenzi AI"],
+    ["cloud", "/cloud.html", "Cloud"],
+    ["ai", "/ai.html", "AI"],
+    ["infra", "/infrastructure.html", "Infrastructure"],
     ["fde", "/#fde", "FDE"],
-    ["network", "/#network", "Network"],
-    ["assessment", "/assessment.html", "Assessment"],
-    ["sizing", "/sizing.html", "Sizing"],
-    ["cloud", "/cloud-config.html", "Cloud Config"],
+    ["start", "/#start", "Plan &amp; price"],
     ["blog", "/blog/", "Blog"],
   ];
+  // Tool pages light up "Plan & price"
+  const active = { assessment: "start", sizing: "start", cloudconfig: "start" }[page] || page;
 
   const header = document.createElement("header");
   header.className = "site-header";
@@ -26,7 +26,7 @@
     <div class="wrap nav">
       <a class="logo" href="/" aria-label="Mjenzi Cloud home">${logo}<span>Mjenzi<small>Cloud</small></span></a>
       <nav class="nav-links" id="navLinks" aria-label="Main">
-        ${links.map(([k, h, t]) => `<a href="${h}" class="${k === page ? "active" : ""}">${t}</a>`).join("")}
+        ${links.map(([k, h, t]) => `<a href="${h}" class="${k === active ? "active" : ""}">${t}</a>`).join("")}
       </nav>
       <div class="nav-cta">
         <a class="btn btn-ghost btn-sm btn-wa" href="https://wa.me/61405342017" target="_blank" rel="noopener" aria-label="WhatsApp us on +61 405 342 017" title="WhatsApp +61 405 342 017"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
@@ -45,28 +45,26 @@
       <div class="footer-grid">
         <div>
           <a class="logo" href="/">${logo}<span>Mjenzi<small>Cloud</small></span></a>
-          <p style="margin-top:14px;max-width:340px">Sovereign cloud, AI and infrastructure built for Africa and Australia. Points of presence in Nairobi, Johannesburg, Gaborone, Sydney and Canberra.</p>
+          <p style="margin-top:14px;max-width:340px"><i>Mjenzi</i> is Swahili for <b>builder</b>. We build cloud, AI and server infrastructure for Africa and Australia: use ours, or we build yours.</p>
           <p style="margin:0 0 6px">KE <a href="tel:+254719897190">+254 719 897 190</a> · AU <a href="tel:+61405342017">+61 405 342 017</a> · ZA <a href="tel:+27791448066">+27 79 144 8066</a> · BW <a href="tel:+26775535900">+267 75 535 900</a></p>
           <p style="margin:0"><a href="https://wa.me/61405342017" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:kinyua@mjenzi.cloud">kinyua@mjenzi.cloud</a></p>
         </div>
         <div>
-          <h4>Platform</h4>
+          <h4>What we do</h4>
           <ul>
-            <li><a href="/platform.html">Mjenzi Cloud Platform</a></li>
-            <li><a href="/platform.html#partners">White-label &amp; Wholesale</a></li>
-            <li><a href="/platform.html#edgepop">Mjenzi EdgePoP</a></li>
-            <li><a href="/#ai">Mjenzi AI</a></li>
-            <li><a href="/#fde">Forward Deployed Engineering</a></li>
-            <li><a href="/#services">Enterprise SOC</a></li>
-            <li><a href="/#services">Servers &amp; Hardware</a></li>
+            <li><a href="/cloud.html">Cloud</a></li>
+            <li><a href="/ai.html">AI &amp; GPUs</a></li>
+            <li><a href="/infrastructure.html">Servers &amp; infrastructure</a></li>
+            <li><a href="/#fde">FDE: engineers &amp; consulting</a></li>
+            <li><a href="/cloud.html#partners">Resell our cloud</a></li>
           </ul>
         </div>
         <div>
-          <h4>Tools</h4>
+          <h4>Plan &amp; price</h4>
           <ul>
-            <li><a href="/assessment.html">Cloud &amp; AI Rapid Assessment</a></li>
-            <li><a href="/sizing.html">Server Sizing &amp; Spec Sheet</a></li>
-            <li><a href="/cloud-config.html">Cloud Configuration Sheet</a></li>
+            <li><a href="/assessment.html">5-minute assessment</a></li>
+            <li><a href="/cloud-config.html">Price a cloud setup</a></li>
+            <li><a href="/sizing.html">Size servers &amp; GPUs</a></li>
           </ul>
         </div>
         <div>
